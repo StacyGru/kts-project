@@ -1,0 +1,32 @@
+@import "styles/Styles";
+
+.input {
+  background-color: $white;
+  padding: $space-s calc(24px + $space-xs + $space-xxs) $space-s $space-xs;
+  vertical-align: center;
+  @include font-size_line-height(16px);
+  color: $primary-black;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: $input-placeholder;
+}
+
+.input:disabled {
+  color: $input-placeholder;
+}
+
+.input:focus {
+  outline: none !important;
+  border: 1px solid $accent-green;
+}
+
+.label {
+  position: relative;
+  transform: translateY(-100%);
+  display: flex;
+  height: 24px;
+  width: 24px;
+}

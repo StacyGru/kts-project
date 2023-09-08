@@ -1,0 +1,52 @@
+:root {
+  --loader-bg: #518581;
+  --loader-bg-white: #FFFFFF;
+}
+
+.white {
+  --loader-bg: var(--loader-bg-white);
+}
+
+.container {
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle {
+  border-radius: 100%;
+  transform: rotate(-58deg);
+
+  border: 5px solid var(--loader-bg);
+  border-bottom: 5px solid transparent;
+  height: 40px;
+  width: 40px;
+  box-sizing: border-box;
+}
+
+.m {
+  height: 48px;
+  width: 48px;
+}
+
+.m .circle {
+  border: 4px solid var(--loader-bg);
+  border-bottom: 4px solid transparent;
+  height: 32px;
+  width: 32px;
+}
+
+.s {
+  height: 24px;
+  width: 24px;
+}
+
+.s .circle {
+  border: 2px solid var(--loader-bg);
+  border-bottom: 2px solid transparent;
+  height: 16px;
+  width: 16px;
+}
+

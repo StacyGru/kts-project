@@ -1,0 +1,40 @@
+@import "styles/Styles";
+
+.parent {
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+}
+
+.parent:hover {
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+}
+
+.child {
+  padding: $space-xl $space-xs;
+  gap: $space-l;
+}
+
+.text_block {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxs;
+  margin-bottom: $space-l;
+}
+
+.footer_block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $space-xxs;
+}
+
+.img {
+  object-fit: cover;
+  width: 360px;
+  height: 360px;
+}
+
+p {
+  margin: 0;
+}

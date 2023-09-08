@@ -1,0 +1,40 @@
+@import "styles/Styles";
+
+.text {
+  gap: $space-m;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 56px;
+}
+
+.search {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $space-m;
+}
+
+.h2 {
+  font-size: 32px !important;
+  line-height: 48px;
+  margin: 0;
+}
+
+.total {
+  display: flex;
+  gap: $space-m;
+  align-items: center;
+  margin-bottom: $space-l;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
+  justify-content: space-between;
+  row-gap: 30px;
+}
+
+.card {
+  width: 360px;
+  margin: 0;
+  padding: 0;
+}

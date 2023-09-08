@@ -1,0 +1,34 @@
+@import "styles/Styles";
+
+.button, .loading_only:hover {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: $space-s $space-l;
+    background-color: $accent-green;
+    color: $white;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: $button-primary-bg-hover;
+    color: $white;
+}
+
+.button:disabled:not(.loading_only), .button:disabled:hover:not(.loading_only)
+{
+    background-color: $button-primary-bg-disabled;
+    color: $white;
+    cursor: default;
+}
+
+.button:active {
+    background-color: $button-primary-bg-active;
+    color: $white;
+}
+
+.button_text {
+    margin: 0;
+}
