@@ -11,7 +11,7 @@ export type CardProps = {
 	/** Слот над заголовком */
 	captionSlot?: React.ReactNode;
 	/** Заголовок карточки */
-	title: React.ReactNode;
+	title: React.ReactNode | string;
 	/** Описание карточки */
 	subtitle: React.ReactNode;
 	/** Содержимое карточки (футер/боковая часть), может быть пустым */
@@ -35,12 +35,12 @@ const Card: React.FC<CardProps> = ({
 
 	return (
 		<div className={`${styles.parent} ${className}`} onClick={onClick}>
-			<img src={image} className={`${styles.img}`}/>
+			<img src={image} alt={title} className={`${styles.img}`}/>
 			<div className={`${styles.child}`}>
 				<div className={`${styles.text_block}`}>
 					{captionSlot ? <Text view="p-14" color="secondary" weight="medium">{captionSlot}</Text> : null}
 					<Text view="p-20" weight="bold" maxLines={parseInt("2")}>{title}</Text>
-					<Text color="secondary" weight="normal" maxLines={parseInt("3")}>{subtitle}</Text>
+					<Text color="secondary" weight="normal" maxLines={parseInt("3")} className={`${styles.long_text}`}>{subtitle}</Text>
 				</div>
 				<div className={`${styles.footer_block}`}>
 					{contentSlot ? <Text view="p-18" weight="bold">{contentSlot}</Text> : null}

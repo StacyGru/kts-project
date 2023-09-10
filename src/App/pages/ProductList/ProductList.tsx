@@ -56,7 +56,7 @@ const ProductList = () => {
 
 			<div className={`${styles.products}`}>
 				{productList.map((product) => (
-					<Link to={`product/${product.id}`} key={product.id}>
+					<Link to={`product/${product.id}`} key={product.id} className={`${styles.link}`}>
 						<Card image={product.images} className={`${styles.card}`}
 									captionSlot={product.category.name} title={product.title}
 									subtitle={product.description}

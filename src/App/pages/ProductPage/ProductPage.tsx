@@ -77,7 +77,7 @@ const ProductPage = () => {
 			<Text view="title" tag="h2" className={`${styles.related_items_title}`}>Related Items</Text>
 			<div className={`${styles.related_items_block}`}>
 				{relatedItems.map((product) => (
-					<Link to={`product/${product.id}`} key={product.id}>
+					<Link to={`product/${product.id}`} key={product.id} className={`${styles.link}`}>
 						<Card image={product.images}
 						      captionSlot={product.category.name} title={product.title}
 						      subtitle={product.description}
