@@ -10,12 +10,14 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	/** Текст кнопки */
 	children: React.ReactNode;
 	className?: string;
+	color?: 'white' | 'accent';
 };
 
 const Button: React.FC<ButtonProps> = ({
 																				 loading,
 																				 children,
 																				 className,
+																				 color,
 																				 ...restProps
 																			 }) => {
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -26,7 +28,8 @@ const Button: React.FC<ButtonProps> = ({
 
 	return (
 		<button
-			className={classNames(className, loading && !restProps.disabled ? `${styles.loading_only}` : null, `${styles.button}`)}
+			className={classNames(className, loading && !restProps.disabled ? `${styles.loading_only}` : null,
+				color === 'white' ? `${styles.button} ${styles.button_white}` : `${styles.button} ${styles.button_accent}`)}
 			{...restProps}
 			onClick={handleClick}
 			disabled={restProps.disabled || loading}

@@ -6,10 +6,11 @@ import MultiDropdown, {Option} from "components/MultiDropdown";
 import Text from "components/Text";
 import Card from "../../../components/Card";
 import styles from "./ProductList.module.scss";
+import {Link} from "react-router-dom";
 
 const ProductList = () => {
 	const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
-	const [data, setData] = useState<any>([]);
+	const [productList, setProductList] = useState<any>([]);
 
 	const handleMultiDropdownChange = (newValue: Option[]) => {
 		setSelectedOptions(newValue);
@@ -22,13 +23,13 @@ const ProductList = () => {
 	];
 
 	useEffect(() => {
-		axios.get('https://api.escuelajs.co/api/v1/products').then((response) => {
-			setData(response.data);
-		});
-		console.log(data);
+		axios.get('https://api.escuelajs.co/api/v1/products')
+			.then((response) => {
+				setProductList(response.data);
+			})
 	}, [])
 
-	return data && (
+	return productList && (
 		<>
 
 			<div className={`${styles.text}`}>
@@ -50,16 +51,18 @@ const ProductList = () => {
 
 			<div className={`${styles.total}`}>
 				<Text view="title" tag="h2" className={`${styles.h2}`}>Total Product</Text>
-				<Text view="p-20" color="accent" weight="bold">{data.length}</Text>
+				<Text view="p-20" color="accent" weight="bold">{productList.length}</Text>
 			</div>
 
 			<div className={`${styles.products}`}>
-				{data.map((product) => (
-					<Card image={product.images} className={`${styles.card}`}
-								captionSlot={product.category.name} title={product.title}
-								subtitle={product.description}
-								contentSlot={`$${product.price}`} actionSlot="Add to Cart"
-					/>
+				{productList.map((product) => (
+					<Link to={`product/${product.id}`} key={product.id}>
+						<Card image={product.images} className={`${styles.card}`}
+									captionSlot={product.category.name} title={product.title}
+									subtitle={product.description}
+									contentSlot={`$${product.price}`} actionSlot="Add to Cart"
+						/>
+					</Link>
 				))}
 			</div>
 

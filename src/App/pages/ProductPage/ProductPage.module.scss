@@ -1,0 +1,52 @@
+@import "styles/Styles";
+
+.back {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  cursor: pointer;
+  margin-top: 60px;
+  margin-bottom: $space-l;
+}
+
+.img_back {
+  @include square(32px);
+}
+
+.card {
+  display: flex;
+  gap: $space-xl;
+  margin-bottom: $space-xl;
+}
+
+.img_card {
+  object-fit: cover;
+  @include square(600px)
+}
+
+.title {
+  margin: 0 0 $space-m;
+}
+
+.description {
+  margin-bottom: calc($space-xl + $space-l);
+}
+
+.buttons {
+  display: flex;
+  gap: $space-xl;
+  margin-top: $space-xl;
+}
+
+.related_items_title {
+  font-size: 32px !important;
+
+}
+
+.related_items_block {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
+  justify-content: space-between;
+  row-gap: 30px;
+  margin: $space-l 0;
+}

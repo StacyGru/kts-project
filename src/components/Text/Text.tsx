@@ -93,8 +93,8 @@ const Text: React.FC<TextProps> = ({
 				overflow: maxLines ? "hidden" : null,
 				textOverflow: maxLines ? "ellipsis" : null,
 				display: maxLines ? "-webkit-box" : null,
-				webkitLineClamp: maxLines ? maxLines.toString() : null,
-				webkitBoxOrient: maxLines ? "vertical" : null
+				WebkitLineClamp: maxLines ? maxLines.toString() : null,
+				WebkitBoxOrient: maxLines ? "vertical" : null
 			}
 		}, children)
 	);

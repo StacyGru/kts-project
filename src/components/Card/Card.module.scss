@@ -31,8 +31,7 @@
 
 .img {
   object-fit: cover;
-  width: 360px;
-  height: 360px;
+  @include square(360px);
 }
 
 p {
