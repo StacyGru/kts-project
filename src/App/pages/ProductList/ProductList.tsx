@@ -7,10 +7,29 @@ import Text from "components/Text";
 import Card from "../../../components/Card";
 import styles from "./ProductList.module.scss";
 import {Link} from "react-router-dom";
+import Pagination from "./components/Pagination";
 
 const ProductList = () => {
 	const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
 	const [productList, setProductList] = useState<any>([]);
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const totalPages = Math.ceil(productList.length / 9);
+	const [currentList, setCurrentList] = useState<any>([]);
+
+	const handlePageChange = (page: number) => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+		setCurrentPage(page);
+		const keys: string[] = Object.keys(productList);
+		const currentKeys: string[] = keys.slice(page * 9 - 9, page * 9);
+		const currentItems: never[] = [];
+		currentKeys.forEach((key) => {
+			currentItems[key] = productList[key];
+		});
+		setCurrentList(currentItems);
+	};
 
 	const handleMultiDropdownChange = (newValue: Option[]) => {
 		setSelectedOptions(newValue);
@@ -29,7 +48,12 @@ const ProductList = () => {
 			})
 	}, [])
 
-	return productList && (
+	useEffect(() => {
+		handlePageChange(currentPage);
+	}, [productList, currentPage]);
+
+
+	return currentList && (
 		<>
 
 			<div className={`${styles.text}`}>
@@ -55,7 +79,7 @@ const ProductList = () => {
 			</div>
 
 			<div className={`${styles.products}`}>
-				{productList.map((product) => (
+				{currentList.map((product) => (
 					<Link to={`product/${product.id}`} key={product.id} className={`${styles.link}`}>
 						<Card image={product.images} className={`${styles.card}`}
 									captionSlot={product.category.name} title={product.title}
@@ -65,6 +89,8 @@ const ProductList = () => {
 					</Link>
 				))}
 			</div>
+
+			<Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
 
 		</>
 	);

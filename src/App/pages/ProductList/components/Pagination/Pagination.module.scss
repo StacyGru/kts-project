@@ -1,0 +1,33 @@
+@import "styles/Styles";
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $space-xl;
+  align-items: center;
+}
+
+.button {
+  padding: 10px;
+}
+
+.button:not(.current, .dots):hover {
+  background-color: #DCE4E3 !important;
+}
+
+.button:not(.current), .dots {
+  background-color: $white !important;
+  color: $primary-black !important;
+}
+
+.arrow_button {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  margin: 0 15px;
+  padding: 0;
+}
+
+.disabled {
+  cursor: default;
+}

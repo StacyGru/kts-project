@@ -1,11 +1,11 @@
 import styles from "./ProductPage.module.scss";
-import Back from "assets/arrow-right.svg";
-import Text from "../../../components/Text";
+import Text from "components/Text";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import Button from "../../../components/Button";
-import Card from "../../../components/Card";
+import Button from "components/Button";
+import Card from "components/Card";
+import SideArrowIcon from "components/Icons/SideArrowIcon/SideArrowIcon.tsx";
 
 const ProductPage = () => {
 
@@ -56,7 +56,7 @@ const ProductPage = () => {
 	return product && relatedItems && (
 		<>
 			<div onClick={() => navigate(-1)} className={`${styles.back}`}>
-				<img src={Back} alt="back" className={`${styles.img_back}`}/>
+				<SideArrowIcon width={32} height={32} color="primary" className={`${styles.svg}`}/>
 				<Text view="p-20">Назад</Text>
 			</div>
 

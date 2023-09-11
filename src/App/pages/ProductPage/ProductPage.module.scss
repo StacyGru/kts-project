@@ -9,10 +9,6 @@
   margin-bottom: $space-l;
 }
 
-.img_back {
-  @include square(32px);
-}
-
 .card {
   display: flex;
   gap: $space-xl;

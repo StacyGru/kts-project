@@ -6,6 +6,7 @@ export type IconProps = {
 	height?: number;
 	color?: string;
 	icon?: React.ReactNode;
+	rotate?: boolean;
 };
 
 const Icon: React.FC<IconProps> = ({
@@ -17,7 +18,7 @@ const Icon: React.FC<IconProps> = ({
 																	 }) => {
 
 	return (
-		<div className={`div-icon ${className}`} style={{width, height, color}}>
+		<div className={`${className}`} style={{width, height, color}}>
 			{icon}
 		</div>
 	);
