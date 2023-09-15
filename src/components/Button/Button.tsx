@@ -28,16 +28,16 @@ const Button: React.FC<ButtonProps> = ({
 
 	return (
 		<button
-			className={classNames(className, loading && !restProps.disabled ? `${styles.loading_only}` : null,
-				color === 'white' ? `${styles.button} ${styles.button_white}` : `${styles.button} ${styles.button_accent}`)}
+			className={classNames(className, (loading && !restProps.disabled) && styles.loading_only,
+				styles.button, color === 'white' ? styles.button_white : styles.button_accent)}
 			{...restProps}
 			onClick={handleClick}
 			disabled={restProps.disabled || loading}
 		>
-			{loading ? <Loader size="s" color="white"/> : null}
-			<Text view="button" className={`${styles.button_text}`}>{children}</Text>
+			{loading && <Loader size="s" color="white"/>}
+			<Text view="button" className={styles.button_text}>{children}</Text>
 		</button>
 	);
 };
 
-export default Button;
+export default React.memo(Button);

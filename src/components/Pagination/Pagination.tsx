@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./Pagination.module.scss";
-import Button from "components/Button";
-import SideArrowIcon from "components/Icons/SideArrowIcon/SideArrowIcon.tsx";
+import Button from "../Button";
+import SideArrowIcon from "../icons/SideArrowIcon/SideArrowIcon.tsx";
 
 interface PaginationProps {
 	currentPage: number;
@@ -16,25 +16,21 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage,
 	const [pages, setPages] = useState<number[]>([]);
 
 	useEffect(() => {
-		function getPages() {
-			if (pageNumbers.length - currentPage < 5) {
-				setPages(pageNumbers.slice(-5));
-			} else {
-				const pagesList = pageNumbers.slice(currentPage - 1, currentPage + 2);
-				pagesList.push(0);
-				pagesList.push(pageNumbers.length);
-				setPages(pagesList);
-			}
+		if (pageNumbers.length - currentPage < 5) {
+			setPages(pageNumbers.slice(-5));
+		} else {
+			const pagesList = pageNumbers.slice(currentPage - 1, currentPage + 2);
+			pagesList.push(0);
+			pagesList.push(pageNumbers.length);
+			setPages(pagesList);
 		}
-		getPages();
-
 	}, [currentPage, totalPages]);
 
 
 	return pages && (
-		<div className={`${styles.pagination}`}>
+		<div className={styles.pagination}>
 
-			<button className={currentPage === 1 ? `${styles.arrow_button} ${styles.disabled}` : `${styles.arrow_button}`}
+			<button className={`${styles['arrow-button']} ${currentPage === 1 && styles.disabled}`}
 			        onClick={() => {
 				        if (currentPage !== 1) {
 					        onPageChange(currentPage - 1)}
@@ -49,14 +45,14 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage,
 					onClick={() => onPageChange(page)}
 					disabled={page === 0}
 					className={page === currentPage
-						? `${styles.button} ${styles.current} ${page === 0 ? `${styles.dots}` : ''}`
-						: `${styles.button} ${page === 0 ? `${styles.dots}` : ''}`}
+						? `${styles.button} ${styles.current} ${page === 0 && styles.dots}`
+						: `${styles.button} ${page === 0 && styles.dots}`}
 				>
 					{page === 0 ? "..." : page}
 				</Button>
 			))}
 
-			<button className={currentPage === pageNumbers.length ? `${styles.arrow_button} ${styles.disabled}` : `${styles.arrow_button}`}
+			<button className={`${styles['arrow-button']} ${currentPage === pageNumbers.length && styles.disabled}`}
 			        onClick={() => {
 								if (currentPage !== pageNumbers.length) {
 									onPageChange(currentPage + 1)}

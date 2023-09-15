@@ -33,7 +33,7 @@ const SideArrowIcon: React.FC<IconProps> = (props, rotate) => {
 				viewBox="0 0 32 32"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
-				className={props.rotate === true ? `${styles.svg_rotate}` : '${styles.svg_no_rotate}'}
+				className={props.rotate === true ? styles.svg_rotate : '${styles.svg_no_rotate}'}
 				{...props}
 			>
 				<path d="M20.1201 26.56L11.4268 17.8667C10.4001 16.84 10.4001 15.16 11.4268 14.1333L20.1201 5.44"

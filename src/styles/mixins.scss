@@ -1,0 +1,9 @@
+@mixin square($size) {
+  height: $size;
+  width: $size;
+}
+
+@mixin font-size_line-height($font-size) {
+  font-size: $font-size;
+  line-height: $font-size + 4;
+}

@@ -29,9 +29,8 @@ const Input: React.FC<InputProps> = ({
                                      }) => {
 
 	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-		const currentValue = event?.target.value;
-		if (onChange) {
-			onChange(currentValue);
+		if (event && onChange) {
+			onChange(event.target.value)
 		}
 	}
 
@@ -43,7 +42,7 @@ const Input: React.FC<InputProps> = ({
 				placeholder={placeholder}
 				disabled={disabled}
 				onChange={handleChange}
-				className={`${styles.input}`}
+				className={styles.input}
 				{...props}
 				style={{
 					height: height,
@@ -51,7 +50,7 @@ const Input: React.FC<InputProps> = ({
 				}}
 			/>
 			<label
-				className={`${styles.label}`}
+				className={styles.label}
 				style={{
 					bottom: `calc((${height ?? '52px'} - 24px) / 2)`,
 					left: `calc(${width ?? '300px'} - 24px - 12px)`

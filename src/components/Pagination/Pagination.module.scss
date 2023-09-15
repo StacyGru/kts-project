@@ -1,4 +1,4 @@
-@import "styles/Styles";
+@import "styles/variables";
 
 .pagination {
   display: flex;
@@ -20,7 +20,7 @@
   color: $primary-black !important;
 }
 
-.arrow_button {
+.arrow-button {
   background-color: inherit;
   border: none;
   cursor: pointer;

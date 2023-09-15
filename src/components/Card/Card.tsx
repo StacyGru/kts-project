@@ -35,14 +35,14 @@ const Card: React.FC<CardProps> = ({
 
 	return (
 		<div className={`${styles.parent} ${className}`} onClick={onClick}>
-			<img src={image} alt={title} className={`${styles.img}`}/>
-			<div className={`${styles.child}`}>
-				<div className={`${styles.text_block}`}>
+			<img src={image} alt={title} className={styles.img}/>
+			<div className={styles.child}>
+				<div className={styles.text_block}>
 					{captionSlot ? <Text view="p-14" color="secondary" weight="medium">{captionSlot}</Text> : null}
 					<Text view="p-20" weight="bold" maxLines={parseInt("2")}>{title}</Text>
-					<Text color="secondary" weight="normal" maxLines={parseInt("3")} className={`${styles.long_text}`}>{subtitle}</Text>
+					<Text color="secondary" weight="normal" maxLines={parseInt("3")} className={styles.long_text}>{subtitle}</Text>
 				</div>
-				<div className={`${styles.footer_block}`}>
+				<div className={styles.footer_block}>
 					{contentSlot ? <Text view="p-18" weight="bold">{contentSlot}</Text> : null}
             {actionSlot ? <Button>{actionSlot}</Button> : null}
 				</div>

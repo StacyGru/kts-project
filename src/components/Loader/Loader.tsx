@@ -11,7 +11,7 @@ export type LoaderProps = {
 
 const Loader: React.FC<LoaderProps> = ({size, className, color = 'primary'}) => (
 	<div className={`${styles.container} ${size ? size : `${styles.l}`} ${className}`}>
-		<div className={`${color === 'white' ? `${styles.white} ${styles.circle}` : `${styles.circle}`}`}></div>
+		<div className={`${styles.circle} ${color === 'white' && styles.white}`}></div>
 	</div>
 );
 

@@ -1,55 +1,54 @@
-@import "styles/Styles";
+@import "styles/variables";
 
 .button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: $space-s $space-l;
-    cursor: pointer;
-    border: 1px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: $space-s $space-l;
+  cursor: pointer;
+  border: 1px solid transparent;
 }
 
 .button_white, .button_white.loading_only:hover {
-    background-color: $white;
-    color: $primary-black;
-    border: 1px solid $secondary-gray;
+  background-color: $white;
+  color: $primary-black;
+  border: 1px solid $secondary-gray;
 }
 
 .button_accent, .button_accent.loading_only:hover {
-    background-color: $accent-green;
-    color: $white;
+  background-color: $accent-green;
+  color: $white;
 }
 
 .button_accent:hover {
-    background-color: $button-primary-bg-hover;
-    color: $white;
+  background-color: $button-primary-bg-hover;
+  color: $white;
 }
 
 .button_white:hover {
-    background-color: $card-image-bg;
-    color: $primary-black;
-    border-color: transparent;
+  background-color: $card-image-bg;
+  color: $primary-black;
+  border-color: transparent;
 }
 
-.button:disabled:not(.loading_only), .button:disabled:hover:not(.loading_only)
-{
-    background-color: $button-primary-bg-disabled;
-    color: $white;
-    cursor: default;
-    border-color: transparent;
+.button:disabled:not(.loading_only), .button:disabled:hover:not(.loading_only) {
+  background-color: $button-primary-bg-disabled;
+  color: $white;
+  cursor: default;
+  border-color: transparent;
 }
 
 .button_accent:active {
-    background-color: $button-primary-bg-active;
-    color: $white;
+  background-color: $button-primary-bg-active;
+  color: $white;
 }
 
 .button_white:active {
-    background-color: $secondary-gray;
-    color: $white;
+  background-color: $secondary-gray;
+  color: $white;
 }
 
 .button_text {
-    margin: 0;
+  margin: 0;
 }

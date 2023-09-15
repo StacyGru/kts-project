@@ -1,7 +1,8 @@
-import Header from "components/Header";
-import ProductList from "./App/pages/ProductList";
+import Header from "../components/Header";
+import ProductList from "pages/ProductList";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import ProductPage from "./App/pages/ProductPage";
+import ProductPage from "pages/ProductPage";
+import "styles/Styles.scss";
 
 function App() {
 
@@ -14,8 +15,6 @@ function App() {
           <Route path="/product/:id" element={<ProductPage/>}/>
         </Routes>
       </div>
-
-
     </BrowserRouter>
   )
 }
