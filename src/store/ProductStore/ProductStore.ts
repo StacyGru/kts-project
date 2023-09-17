@@ -1,18 +1,28 @@
 import {Meta} from "../../utils/meta.ts";
 import {action, computed, makeObservable, observable, runInAction} from "mobx";
 import axios from "axios";
-import {normalizeProduct, ProductApi, ProductModel} from "../models/product";
+import {
+	CategoryApi,
+	CategoryModel,
+	normalizeCategory,
+	normalizeProduct,
+	ProductApi,
+	ProductModel
+} from "../models/product";
 import {
 	CollectionModel,
 	getInitialCollectionModel, getInitialProductItem,
 	linearizeCollection,
 	normalizeCollection
 } from "../models/shared/collection.ts";
+import {Option} from "../../components/MultiDropdown/MultiDropdown.tsx";
 
-type PrivateFields = "_productList" | "_meta" | "_totalPages"
-	| "_currentPage" | "_currentList" | "_searchQuery" | "_productItem" | "_relatedItems" | "_resultList";
+type PrivateFields = "_productList" | "_meta" | "_totalPages" | "_currentPage" | "_currentList" |
+										 "_searchQuery" | "_productItem" | "_relatedItems" | "_resultList" | "_categoryList" |
+	                   "_selectedFilters";
 
 const PRODUCT_LIST_URL: string = 'https://api.escuelajs.co/api/v1/products';
+const CATEGORY_LIST_URL: string = 'https://api.escuelajs.co/api/v1/categories';
 
 export default class ProductStore {
 	private _meta: Meta = Meta.initial;
@@ -27,6 +37,8 @@ export default class ProductStore {
 
 	private _searchQuery: string = "";
 	private _resultList: CollectionModel<number, ProductModel> = getInitialCollectionModel();
+	private _categoryList: Option[] = [];
+	private _selectedFilters: Option[] = [];
 
 	constructor() {
 		makeObservable<ProductStore, PrivateFields>(this, {
@@ -42,6 +54,8 @@ export default class ProductStore {
 
 			_searchQuery: observable,
 			_resultList: observable.ref,
+			_categoryList: observable.ref,
+			_selectedFilters: observable.ref,
 
 			meta: computed,
 			productList: computed,
@@ -52,12 +66,16 @@ export default class ProductStore {
 			relatedItems: computed,
 			searchQuery: computed,
 			resultList: computed,
+			categoryList: computed,
+			selectedFilters: computed,
 
 			getProductList: action.bound,
 			setPage: action.bound,
 			getProduct: action.bound,
 			getRelatedItems: action.bound,
-			setSearchQuery: action,
+			setSearchQuery: action.bound,
+			getCategoryList: action.bound,
+			setFilters: action.bound
 		});
 	}
 
@@ -95,6 +113,14 @@ export default class ProductStore {
 
 	get resultList(): ProductModel[] {
 		return linearizeCollection(this._resultList);
+	}
+
+	get categoryList(): Option[] {
+		return this._categoryList;
+	}
+
+	get selectedFilters(): Option[] {
+		return this._selectedFilters;
 	}
 
 	async getProductList(): Promise<void> {
@@ -205,5 +231,45 @@ export default class ProductStore {
 		const searchResult = linearizeCollection(this._productList)
 			.filter((item) => item.title.toLowerCase().includes(value.toLowerCase()));
 		this._resultList = normalizeCollection(searchResult, ((item) => item.id));
+	}
+
+	async getCategoryList(): Promise<void> {
+		this._meta = Meta.loading;
+		this._categoryList = [];
+
+		const response = await axios.get<CategoryApi[]>(CATEGORY_LIST_URL);
+
+		runInAction(() => {
+			if (response.status === 200) {
+				try {
+					const list: CategoryModel[] = [];
+					for (const item of response.data) {
+						list.push(normalizeCategory(item));
+					}
+					this._categoryList = list.map((category) => ({
+						key: category.id,
+						value: category.name,
+					}));
+					this._meta = Meta.success;
+					return;
+				} catch {
+					this._meta = Meta.error;
+				}
+			} else {
+				this._meta = Meta.error;
+			}
+		})
+	};
+
+	setFilters(filters: Option[]) {
+		this._selectedFilters = filters;
+		if (this._selectedFilters.length === 0) {
+			this._resultList = this._productList;
+		} else {
+			const filterResult = linearizeCollection(this._productList)
+				.filter((item) => this._selectedFilters
+					.some((filter) => item.category.id === filter.key));
+			this._resultList = normalizeCollection(filterResult, ((item) => item.id));
+		}
 	}
 }

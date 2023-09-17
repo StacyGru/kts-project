@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Button from "components/Button";
 import Input from "components/Input";
 import MultiDropdown, {Option} from "components/MultiDropdown";
@@ -16,8 +16,8 @@ const ProductList = () => {
 	const currentPage = productStore.currentPage;
 	const currentList = productStore.currentList;
 	const totalPages = productStore.totalPages;
-
-	const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
+	const categoryList = productStore.categoryList;
+	const selectedFilters = productStore.selectedFilters;
 
 	const handlePageChange = useCallback((page: number) => {
 		window.scrollTo({
@@ -29,17 +29,12 @@ const ProductList = () => {
 	}, [currentPage, currentList]);
 
 	const handleMultiDropdownChange = (newValue: Option[]) => {
-		setSelectedOptions(newValue);
+		productStore.setFilters(newValue);
 	};
-
-	const OPTIONS = [
-		{ key: 'msk', value: 'Moscow' },
-		{ key: 'spb', value: 'Saint Petersburg' },
-		{ key: 'ekb', value: 'Ekaterinburg' },
-	];
 
 	useEffect(() => {
 		productStore.getProductList();
+		productStore.getCategoryList();
 	}, [productStore]);
 
 	useEffect(() => {
@@ -53,8 +48,6 @@ const ProductList = () => {
 			productStore.setSearchQuery(value);
 			handlePageChange(1);
 		}
-		console.log("searchQuery:", productStore.searchQuery);
-		console.log(productStore.resultList);
 	}
 
 	function handleKeyPress(event) {
@@ -64,7 +57,7 @@ const ProductList = () => {
 		}
 	}
 
-	return currentList ? (
+	return currentList && categoryList ? (
 		<>
 
 			<div className={styles.text}>
@@ -78,10 +71,10 @@ const ProductList = () => {
 				<Button onClick={handleSearch} id="search-button">Find now</Button>
 			</div>
 			<MultiDropdown
-				options={OPTIONS}
-				value={selectedOptions}
+				options={categoryList}
+				selectedOptions={selectedFilters}
 				onChange={handleMultiDropdownChange}
-				getTitle={(values: Option[]) => `Filters: ${values.map(({ value }) => value).join(', ')}`}
+				getValues={(values: Option[]) => `${values.map(({ value }) => value).join(', ')}`}
 			/>
 
 			<div className={styles.total}>

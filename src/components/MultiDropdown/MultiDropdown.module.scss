@@ -1,7 +1,7 @@
 @import "styles/variables";
 
 .multidropdown {
-    width: 400px;
+    width: 300px;
 }
 
 .focused {
@@ -15,11 +15,14 @@
     padding: 0;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
     position: absolute;
+    height: calc(47px * 5);
+    overflow-y: scroll;
 }
 
 .option {
     list-style-type: none;
     padding: 14px 12px;
+    cursor: pointer;
 }
 
 .option:hover {
