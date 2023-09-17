@@ -26,7 +26,6 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage,
 		}
 	}, [currentPage, totalPages]);
 
-
 	return pages && (
 		<div className={styles.pagination}>
 

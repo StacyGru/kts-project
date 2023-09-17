@@ -116,6 +116,20 @@ export default class ProductStore {
 		})
 	};
 
+	saveCurrentPageToLocalStorage() {
+		localStorage.setItem('currentPage', this._currentPage.toString());
+	}
+
+	restoreCurrentPageFromLocalStorage() {
+		const savedPage = localStorage.getItem('currentPage');
+		if (savedPage) {
+			this._currentPage = parseInt(savedPage, 10);
+		} else {
+			this._currentPage = 1;
+		}
+		this.setPage(this._currentPage);
+	}
+
 	setPage(page: number) {
 		this._meta =  Meta.loading;
 		try {
@@ -183,6 +197,3 @@ export default class ProductStore {
 		this._searchQuery = value;
 	}
 }
-
-const productListStore = new ProductStore();
-export { productListStore };

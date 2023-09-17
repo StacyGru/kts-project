@@ -24,6 +24,7 @@ const ProductList = () => {
 			behavior: 'smooth',
 		});
 		productStore.setPage(page);
+		productStore.saveCurrentPageToLocalStorage();
 	}, [currentPage, currentList]);
 
 	const handleMultiDropdownChange = (newValue: Option[]) => {
@@ -41,7 +42,7 @@ const ProductList = () => {
 	}, [productStore]);
 
 	useEffect(() => {
-		handlePageChange(currentPage);
+		productStore.restoreCurrentPageFromLocalStorage();
 	}, [productList, currentPage]);
 
 	function handleSearch() {
