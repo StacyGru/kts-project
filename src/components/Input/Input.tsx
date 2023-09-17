@@ -15,6 +15,7 @@ export type InputProps = Omit<
 	width?: string;
 	height?: string;
 	placeholder?: string;
+	onKeyDown?: (Event: never) => void;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -25,6 +26,7 @@ const Input: React.FC<InputProps> = ({
 	                                     width = "300px",
 	                                     height,
 	                                     placeholder,
+	                                     onKeyDown,
 	                                     ...props
                                      }) => {
 
@@ -42,6 +44,7 @@ const Input: React.FC<InputProps> = ({
 				placeholder={placeholder}
 				disabled={disabled}
 				onChange={handleChange}
+				onKeyDown={onKeyDown}
 				className={styles.input}
 				{...props}
 				style={{

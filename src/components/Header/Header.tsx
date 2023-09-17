@@ -3,6 +3,7 @@ import Lalasia from "assets/lalasia.svg";
 import Logo from "assets/logo.svg";
 import User from "assets/user.svg";
 import styles from "./Header.module.scss";
+import {Link} from "react-router-dom";
 
 const Header = () => {
 	return (
@@ -14,7 +15,7 @@ const Header = () => {
 			</div>
 
 			<ul className={styles.div_navigation}>
-				<li className={styles.div_navigation_item}>Products</li>
+				<Link to="/"><li className={styles.div_navigation_item}>Products</li></Link>
 				<li className={styles.div_navigation_item}>Categories</li>
 				<li className={styles.div_navigation_item}>About us</li>
 			</ul>

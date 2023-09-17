@@ -10,7 +10,7 @@ import {
 } from "../models/shared/collection.ts";
 
 type PrivateFields = "_productList" | "_meta" | "_totalPages"
-	| "_currentPage" | "_currentList" | "_searchQuery" | "_productItem" | "_relatedItems";
+	| "_currentPage" | "_currentList" | "_searchQuery" | "_productItem" | "_relatedItems" | "_resultList";
 
 const PRODUCT_LIST_URL: string = 'https://api.escuelajs.co/api/v1/products';
 
@@ -26,6 +26,7 @@ export default class ProductStore {
 	private _relatedItems: CollectionModel<number, ProductModel> = getInitialCollectionModel();
 
 	private _searchQuery: string = "";
+	private _resultList: CollectionModel<number, ProductModel> = getInitialCollectionModel();
 
 	constructor() {
 		makeObservable<ProductStore, PrivateFields>(this, {
@@ -40,6 +41,7 @@ export default class ProductStore {
 			_relatedItems: observable.ref,
 
 			_searchQuery: observable,
+			_resultList: observable.ref,
 
 			meta: computed,
 			productList: computed,
@@ -49,12 +51,13 @@ export default class ProductStore {
 			productItem: computed,
 			relatedItems: computed,
 			searchQuery: computed,
+			resultList: computed,
 
 			getProductList: action.bound,
 			setPage: action.bound,
 			getProduct: action.bound,
 			getRelatedItems: action.bound,
-			setSearchQuery: action.bound,
+			setSearchQuery: action,
 		});
 	}
 
@@ -90,6 +93,10 @@ export default class ProductStore {
 		return this._searchQuery;
 	}
 
+	get resultList(): ProductModel[] {
+		return linearizeCollection(this._resultList);
+	}
+
 	async getProductList(): Promise<void> {
 		this._meta = Meta.loading;
 		this._productList = getInitialCollectionModel();
@@ -104,7 +111,7 @@ export default class ProductStore {
 						list.push(normalizeProduct(item));
 					}
 					this._productList = normalizeCollection(list, ((listItem) => listItem.id));
-					this._totalPages = Math.ceil(this._productList.order.length / 9);
+					this._resultList = this._productList;
 					this._meta = Meta.success;
 					return;
 				} catch {
@@ -135,8 +142,9 @@ export default class ProductStore {
 		try {
 			this._currentList = getInitialCollectionModel();
 			this._currentPage = page;
-			const currentKeys: number[] = this._productList.order.slice(page * 9 - 9, page * 9);
-			const currentList = currentKeys.map((id) => this._productList.entities[id]);
+			this._totalPages = Math.ceil(this._resultList.order.length / 9);
+			const currentKeys: number[] = this._resultList.order.slice(page * 9 - 9, page * 9);
+			const currentList = currentKeys.map((id) => this._resultList.entities[id]);
 			this._currentList = normalizeCollection(currentList, ((item) => item.id));
 		} catch {
 			this._meta = Meta.error;
@@ -171,7 +179,6 @@ export default class ProductStore {
 			const productList = linearizeCollection(this._productList)
 				.filter((item) => item.category.name = this._productItem.category.name)
 				.filter((item) => item.id !== this._productItem.id);
-			console.log(productList);
 
 			const randomItems: ProductModel[] = [];
 			let maxRandomItems: number = 0;
@@ -195,5 +202,8 @@ export default class ProductStore {
 
 	setSearchQuery(value: string) {
 		this._searchQuery = value;
+		const searchResult = linearizeCollection(this._productList)
+			.filter((item) => item.title.toLowerCase().includes(value.toLowerCase()));
+		this._resultList = normalizeCollection(searchResult, ((item) => item.id));
 	}
 }

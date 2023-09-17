@@ -12,9 +12,10 @@ import ProductStore from "../../../store/ProductStore";
 
 const ProductList = () => {
 	const productStore = useLocalObservable(() => new ProductStore());
-	const productList = productStore.productList;
+	const productList = productStore.resultList;
 	const currentPage = productStore.currentPage;
 	const currentList = productStore.currentList;
+	const totalPages = productStore.totalPages;
 
 	const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
 
@@ -46,10 +47,20 @@ const ProductList = () => {
 	}, [productList, currentPage]);
 
 	function handleSearch() {
-		const input = document.getElementById("search") as HTMLInputElement;
+		const input = document.getElementById("search-input") as HTMLInputElement;
 		if (input) {
 			const value = input.value;
 			productStore.setSearchQuery(value);
+			handlePageChange(1);
+		}
+		console.log("searchQuery:", productStore.searchQuery);
+		console.log(productStore.resultList);
+	}
+
+	function handleKeyPress(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			handleSearch();
 		}
 	}
 
@@ -63,8 +74,8 @@ const ProductList = () => {
 			</div>
 
 			<div className={styles.search}>
-				<Input width="1079px" placeholder="Search product" id="search"/>
-				<Button onClick={handleSearch}>Find now</Button>
+				<Input width="1079px" placeholder="Search product" id="search-input" onKeyDown={handleKeyPress}/>
+				<Button onClick={handleSearch} id="search-button">Find now</Button>
 			</div>
 			<MultiDropdown
 				options={OPTIONS}
@@ -90,7 +101,10 @@ const ProductList = () => {
 				))}
 			</div>
 
-			<Pagination currentPage={currentPage} totalPages={productStore.totalPages} onPageChange={handlePageChange} />
+			{totalPages > 1
+				? <Pagination currentPage={currentPage} totalPages={productStore.totalPages} onPageChange={handlePageChange} />
+				: null
+			}
 
 		</>
 	) : null;
