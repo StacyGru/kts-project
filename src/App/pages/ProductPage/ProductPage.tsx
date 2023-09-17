@@ -1,85 +1,34 @@
 import styles from "./ProductPage.module.scss";
 import Text from "components/Text";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import React, {useCallback, useEffect, useState} from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import Button from "components/Button";
 import Card from "components/Card";
 import SideArrowIcon from "components/Icons/SideArrowIcon/SideArrowIcon.tsx";
-
-type Product = {
-	id: number;
-	title: string;
-	price: number;
-	description: string;
-	images: string[];
-	creationAt: string;
-	updatedAt: string;
-	category: {
-		id: number;
-		name: string;
-		image: string;
-		creationAt: string;
-		updatedAt: string;
-	};
-};
+import {observer, useLocalObservable} from "mobx-react-lite";
+import ProductStore from "../../../store/ProductStore";
 
 const ProductPage = () => {
-
-	const [product, setProduct] = useState<Product>();
-	const [productList, setProductList] = useState<Product>([]);
-	const [relatedItems, setRelatedItems] = useState<Product>([]);
+	const productStore = useLocalObservable(() => new ProductStore());
+	const productList = productStore.productList;
+	const product = productStore.productItem;
+	const relatedItems = productStore.relatedItems;
 	const navigate = useNavigate();
   const { id } = useParams();
 
-	const getProduct = async () => {
-		const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${id}`);
-		if (response.status === 200) {
-			setProduct(response.data);
-		} else {
-			console.error('Ошибка при получении данных. Статус:', response.status);
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+		});
+		if (id != null) {
+			productStore.getProduct(parseInt(id));
 		}
-	};
-	const getProductList = async () => {
-		const response = await axios.get('https://api.escuelajs.co/api/v1/products');
-		if (response.status === 200) {
-			setProductList(response.data);
-		} else {
-			console.error('Ошибка при получении данных. Статус:', response.status);
-		}
-	};
-
-  useEffect(() => {
-		getProduct();
-	  getProductList();
-	}, [id])
+		productStore.getProductList();
+	}, [id]);
 
 	useEffect(() => {
-		if (productList.length > 0) {
-			const related = getRelatedItems(productList, 3);
-			const relatedArray: Product[] = Object.values(related);
-			setRelatedItems(relatedArray);
-		}
+		productStore.getRelatedItems();
 	}, [productList]);
-
-	const getRelatedItems = useCallback((obj: [], n: number): Product[] => {
-		const newObj: [] = obj.filter(item => item.id !== product.id);
-		const keys = Object.keys(newObj);
-
-		for (let i = keys.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[keys[i], keys[j]] = [keys[j], keys[i]];
-		}
-
-		const selectedKeys = keys.slice(0, n);
-
-		const result: Record<string, Product> = {};
-		for (const key of selectedKeys) {
-			result[key] = newObj[key];
-		}
-
-		return result;
-	}, [product]);
 
 	return product && relatedItems ? (
 		<>
@@ -89,7 +38,7 @@ const ProductPage = () => {
 			</div>
 
 			<div className={styles.card}>
-				<img src={product.images} alt={product.title} className={styles.img_card}/>
+				<img src={product.images[0]} alt={product.title} className={styles.img_card}/>
 				<div>
 					<Text view="title" tag="h1" maxLines={parseInt("2")} className={styles.title}>{product.title}</Text>
 					<Text view="p-20" color="secondary" weight="normal" maxLines={parseInt("3")} className={styles.description}>
@@ -106,7 +55,7 @@ const ProductPage = () => {
 			<div className={styles.related_items_block}>
 				{relatedItems.map((product) => (
 					<Link to={`product/${product.id}`} key={product.id} className={styles.link}>
-						<Card image={product.images}
+						<Card image={product.images[0]}
 						      captionSlot={product.category.name} title={product.title}
 						      subtitle={product.description}
 						      contentSlot={`$${product.price}`} actionSlot="Add to Cart"
@@ -118,4 +67,4 @@ const ProductPage = () => {
 	) : null;
 }
 
-export default ProductPage;
+export default observer(ProductPage);

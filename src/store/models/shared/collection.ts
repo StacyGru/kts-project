@@ -1,3 +1,5 @@
+import {ProductModel} from "../product";
+
 export type CollectionModel<K extends string | number, T> = {
 	order: K[];
 	entities: Record<K, T>;
@@ -6,6 +8,23 @@ export type CollectionModel<K extends string | number, T> = {
 export const getInitialCollectionModel = (): CollectionModel<any, any> => ({
 	order: [],
 	entities: {}
+});
+
+export const getInitialProductItem = (): ProductModel => ({
+	id: 0,
+	title: "",
+	price: 0,
+	description: "",
+	images: [],
+	creationAt: undefined,
+	updatedAt: undefined,
+	category: {
+		id: 0,
+		name: "",
+		image: "",
+		updatedAt: undefined,
+		creationAt: undefined,
+	},
 });
 
 export const normalizeCollection = <K extends string | number, T>(

@@ -7,11 +7,15 @@ import Card from "components/Card";
 import styles from "./ProductList.module.scss";
 import {Link} from "react-router-dom";
 import Pagination from "../../../components/Pagination";
-import {observer, useLocalStore} from "mobx-react-lite";
-import ProductListStore from "../../../store/ProductListStore";
+import {observer, useLocalObservable} from "mobx-react-lite";
+import ProductStore from "../../../store/ProductStore";
 
 const ProductList = () => {
-	const productListStore = useLocalStore(() => new ProductListStore());
+	const productStore = useLocalObservable(() => new ProductStore());
+	const productList = productStore.productList;
+	const currentPage = productStore.currentPage;
+	const currentList = productStore.currentList;
+
 	const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
 
 	const handlePageChange = useCallback((page: number) => {
@@ -19,8 +23,8 @@ const ProductList = () => {
 			top: 0,
 			behavior: 'smooth',
 		});
-		productListStore.setPage(page);
-	}, [productListStore.currentPage, productListStore.currentList]);
+		productStore.setPage(page);
+	}, [currentPage, currentList]);
 
 	const handleMultiDropdownChange = (newValue: Option[]) => {
 		setSelectedOptions(newValue);
@@ -33,15 +37,22 @@ const ProductList = () => {
 	];
 
 	useEffect(() => {
-		productListStore.getProductList();
-	}, [productListStore]);
+		productStore.getProductList();
+	}, [productStore]);
 
 	useEffect(() => {
-		handlePageChange(productListStore.currentPage);
-	}, [productListStore.productList, productListStore.currentPage]);
+		handlePageChange(currentPage);
+	}, [productList, currentPage]);
 
+	function handleSearch() {
+		const input = document.getElementById("search") as HTMLInputElement;
+		if (input) {
+			const value = input.value;
+			productStore.setSearchQuery(value);
+		}
+	}
 
-	return productListStore.currentList ? (
+	return currentList ? (
 		<>
 
 			<div className={styles.text}>
@@ -51,8 +62,8 @@ const ProductList = () => {
 			</div>
 
 			<div className={styles.search}>
-				<Input width="1079px" placeholder="Search product"/>
-				<Button>Find now</Button>
+				<Input width="1079px" placeholder="Search product" id="search"/>
+				<Button onClick={handleSearch}>Find now</Button>
 			</div>
 			<MultiDropdown
 				options={OPTIONS}
@@ -63,11 +74,11 @@ const ProductList = () => {
 
 			<div className={styles.total}>
 				<Text view="title" tag="h2" className={styles.h2}>Total Product</Text>
-				<Text view="p-20" color="accent" weight="bold">{productListStore.productList.length}</Text>
+				<Text view="p-20" color="accent" weight="bold">{productList.length}</Text>
 			</div>
 
 			<div className={styles.products}>
-				{productListStore.currentList.map((product) => (
+				{currentList.map((product) => (
 					<Link to={`product/${product.id}`} key={product.id} className={styles.link}>
 						<Card image={product.images[0]} className={styles.card}
 									captionSlot={product.category.name} title={product.title}
@@ -78,7 +89,7 @@ const ProductList = () => {
 				))}
 			</div>
 
-			<Pagination currentPage={productListStore.currentPage} totalPages={productListStore.totalPages} onPageChange={handlePageChange} />
+			<Pagination currentPage={currentPage} totalPages={productStore.totalPages} onPageChange={handlePageChange} />
 
 		</>
 	) : null;

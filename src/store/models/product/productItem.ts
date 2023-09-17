@@ -21,14 +21,14 @@ export type ProductModel = {
 	price: number;
 	description: string;
 	images: string[];
-	creationAt: Date;
-	updatedAt: Date;
+	creationAt: Date | undefined;
+	updatedAt: Date | undefined;
 	category: {
 		id: number;
 		name: string;
 		image: string;
-		creationAt: Date;
-		updatedAt: Date;
+		creationAt: Date | undefined;
+		updatedAt: Date | undefined;
 	};
 };
 
