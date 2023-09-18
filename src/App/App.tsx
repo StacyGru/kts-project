@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ProductPage from "pages/ProductPage";
 import "styles/Styles.scss";
 
-function App() {
+const App = () => {
 
   return (
     <BrowserRouter>

@@ -5,6 +5,7 @@ export type InputProps = Omit<
 	React.InputHTMLAttributes<HTMLInputElement>,
 	'onChange' | 'value'
 > & {
+	defaultValue?: string,
 	/** Значение поля */
 	value?: string;
 	/** Callback, вызываемый при вводе данных в поле */
@@ -20,6 +21,7 @@ export type InputProps = Omit<
 };
 
 const Input: React.FC<InputProps> = ({
+	                                     defaultValue,
 	                                     value,
 	                                     onChange,
 	                                     afterSlot,
@@ -48,6 +50,7 @@ const Input: React.FC<InputProps> = ({
 		<>
 			<input
 				type="text"
+				defaultValue={defaultValue}
 				value={value}
 				placeholder={placeholder}
 				disabled={disabled}

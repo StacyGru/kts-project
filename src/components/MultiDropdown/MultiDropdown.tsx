@@ -59,10 +59,6 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 	}, []);
 
 	useEffect(() => {
-		console.log(selectedOptions);
-	}, [selectedOptions]);
-
-	useEffect(() => {
 		setDisabled(initialDisabled);
 	}, [initialDisabled]);
 

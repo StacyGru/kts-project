@@ -1,51 +1,49 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import Button from "components/Button";
 import Input from "components/Input";
 import MultiDropdown, {Option} from "components/MultiDropdown";
 import Text from "components/Text";
 import Card from "components/Card";
 import styles from "./ProductList.module.scss";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Pagination from "../../../components/Pagination";
 import {observer, useLocalObservable} from "mobx-react-lite";
 import ProductStore from "../../../store/ProductStore";
+import globalStore from "../../../store/RootStore/GlobalStore";
 
 const ProductList = () => {
 	const productStore = useLocalObservable(() => new ProductStore());
-	const productList = productStore.resultList;
-	const currentPage = productStore.currentPage;
-	const currentList = productStore.currentList;
+	const productList = productStore.productList;
+	const currentPage = globalStore.currentPage;
 	const totalPages = productStore.totalPages;
-	const categoryList = productStore.categoryList;
-	const selectedFilters = productStore.selectedFilters;
+	const categoryList = globalStore.categoryList;
+	const selectedFilters = globalStore.selectedFilters;
+	const navigate = useNavigate();
 
 	const handlePageChange = useCallback((page: number) => {
 		window.scrollTo({
 			top: 0,
 			behavior: 'smooth',
 		});
-		productStore.setPage(page);
-		productStore.saveCurrentPageToLocalStorage();
-	}, [currentPage, currentList]);
+		globalStore.setPage(page);
+		navigate(`?page=${page}`);
+	}, [currentPage]);
 
 	const handleMultiDropdownChange = (newValue: Option[]) => {
-		productStore.setFilters(newValue);
+		globalStore.setFilters(newValue);
 	};
 
 	useEffect(() => {
 		productStore.getProductList();
-		productStore.getCategoryList();
+		globalStore.getCategoryList();
 	}, [productStore]);
-
-	useEffect(() => {
-		productStore.restoreCurrentPageFromLocalStorage();
-	}, [productList, currentPage]);
 
 	function handleSearch() {
 		const input = document.getElementById("search-input") as HTMLInputElement;
 		if (input) {
 			const value = input.value;
-			productStore.setSearchQuery(value);
+			globalStore.setSearchQuery(value);
+			productStore.getProductList();
 			handlePageChange(1);
 		}
 	}
@@ -57,7 +55,7 @@ const ProductList = () => {
 		}
 	}
 
-	return currentList && categoryList ? (
+	return productList && categoryList ? (
 		<>
 
 			<div className={styles.text}>
@@ -67,7 +65,7 @@ const ProductList = () => {
 			</div>
 
 			<div className={styles.search}>
-				<Input width="1079px" placeholder="Search product" id="search-input" onKeyDown={handleKeyPress}/>
+				<Input width="1079px" placeholder="Search product" id="search-input" onKeyDown={handleKeyPress} defaultValue=""/>
 				<Button onClick={handleSearch} id="search-button">Find now</Button>
 			</div>
 			<MultiDropdown
@@ -83,7 +81,7 @@ const ProductList = () => {
 			</div>
 
 			<div className={styles.products}>
-				{currentList.map((product) => (
+				{productList.slice(currentPage * 9 - 9, currentPage * 9).map((product) => (
 					<Link to={`product/${product.id}`} key={product.id} className={styles.link}>
 						<Card image={product.images[0]} className={styles.card}
 									captionSlot={product.category.name} title={product.title}
