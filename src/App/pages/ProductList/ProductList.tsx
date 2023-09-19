@@ -14,11 +14,41 @@ import globalStore from "../../../store/RootStore/GlobalStore";
 const ProductList = () => {
 	const productStore = useLocalObservable(() => new ProductStore());
 	const productList = productStore.productList;
-	const currentPage = globalStore.currentPage;
+
 	const totalPages = productStore.totalPages;
 	const categoryList = globalStore.categoryList;
-	const selectedFilters = globalStore.selectedFilters;
 	const navigate = useNavigate();
+
+	const currentPage = globalStore.currentPage;
+	const searchQuery = globalStore.searchQuery;
+	const selectedFilters = globalStore.selectedFilters;
+
+	const urlSearchParams = new URLSearchParams(window.location.search);
+
+	useEffect(() => {
+		productStore.getProductList();
+		globalStore.getCategoryList();
+		if (urlSearchParams.get("page")) {
+			globalStore.setPage(parseInt(urlSearchParams.get("page")));
+		}
+		if (urlSearchParams.get("search")) {
+			globalStore.setSearchQuery(urlSearchParams.get("search"));
+		}
+		if (urlSearchParams.get("filters")) {
+			globalStore.setFilters(filtersFromStringToOption(urlSearchParams.get("filters")));
+		}
+	}, []);
+
+	useEffect(() => {
+		let queryParams: string = `/?page=${currentPage}`;
+		if (searchQuery !== "") {
+			queryParams += `&search=${searchQuery}`;
+		}
+		if (selectedFilters.length > 0) {
+			queryParams += `&filters=${filtersFromOptionToString(selectedFilters)}`;
+		}
+		navigate(queryParams);
+	}, [currentPage, searchQuery, selectedFilters]);
 
 	const handlePageChange = useCallback((page: number) => {
 		window.scrollTo({
@@ -28,15 +58,6 @@ const ProductList = () => {
 		globalStore.setPage(page);
 		navigate(`?page=${page}`);
 	}, [currentPage]);
-
-	const handleMultiDropdownChange = (newValue: Option[]) => {
-		globalStore.setFilters(newValue);
-	};
-
-	useEffect(() => {
-		productStore.getProductList();
-		globalStore.getCategoryList();
-	}, [productStore]);
 
 	function handleSearch() {
 		const input = document.getElementById("search-input") as HTMLInputElement;
@@ -55,6 +76,22 @@ const ProductList = () => {
 		}
 	}
 
+	const handleMultiDropdownChange = (newValue: Option[]) => {
+		globalStore.setFilters(newValue);
+		globalStore.setFiltersString(filtersFromOptionToString(newValue));
+	};
+
+	function filtersFromStringToOption(filters: string): Option[] {
+		const filtersAsString = filters.split(',');
+		return categoryList
+			.filter((category) => filtersAsString
+				.some((filterKey) => category.key === parseInt(filterKey)))
+	}
+
+	function filtersFromOptionToString(filters: Option[]): string {
+		return  filters.map((filter) => filter.key).join(',');
+	}
+
 	return productList && categoryList ? (
 		<>
 
@@ -65,7 +102,7 @@ const ProductList = () => {
 			</div>
 
 			<div className={styles.search}>
-				<Input width="1079px" placeholder="Search product" id="search-input" onKeyDown={handleKeyPress} defaultValue=""/>
+				<Input width="1079px" placeholder="Search product" id="search-input" onKeyDown={handleKeyPress} defaultValue={urlSearchParams.get("search")}/>
 				<Button onClick={handleSearch} id="search-button">Find now</Button>
 			</div>
 			<MultiDropdown
