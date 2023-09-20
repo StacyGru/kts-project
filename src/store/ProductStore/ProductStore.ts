@@ -77,23 +77,21 @@ export default class ProductStore {
 		this._meta = Meta.loading;
 		this._productList = getInitialCollectionModel();
 
-		const response = await axios.get<ProductApi[]>(PRODUCT_LIST_URL);
+		const response = await axios.get<ProductApi[]>(
+			PRODUCT_LIST_URL, {
+				params: {
+					title: title,
+					categoryId: categoryId[0]
+				}
+			}
+		);
 
 		runInAction(() => {
 			if (response.status === 200) {
 				try {
-					let list: ProductModel[] = [];
+					const list: ProductModel[] = [];
 					for (const item of response.data) {
 						list.push(normalizeProduct(item));
-					}
-					if (title !== "") {
-						list = list
-							.filter((item) => item.title.toLowerCase().includes(title.toLowerCase()));
-					}
-					if (categoryId.length > 0) {
-						list = list
-							.filter((item) => categoryId
-								.some((category) => item.category.id === category));
 					}
 					this._productList = normalizeCollection(list, ((listItem) => listItem.id));
 					this._meta = Meta.success;
