@@ -3,9 +3,11 @@ import Lalasia from "assets/lalasia.svg";
 import Logo from "assets/logo.svg";
 import User from "assets/user.svg";
 import styles from "./Header.module.scss";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 const Header = () => {
+	const location = useLocation();
+
 	return (
 		<header className={styles.header}>
 
@@ -15,9 +17,12 @@ const Header = () => {
 			</div>
 
 			<ul className={styles.div_navigation}>
-				<Link to="/"><li className={styles.div_navigation_item}>Products</li></Link>
-				<li className={styles.div_navigation_item}>Categories</li>
-				<li className={styles.div_navigation_item}>About us</li>
+				<Link to="/"><li
+					className={`${styles.div_navigation_item} ${location.pathname === "/" && styles.active}`}>Products</li></Link>
+				<Link to="/categories"><li
+					className={`${styles.div_navigation_item} ${location.pathname === "/categories" && styles.active}`}>Categories</li></Link>
+				<Link to="/about_us"><li
+					className={`${styles.div_navigation_item} ${location.pathname === "/about_us" && styles.active}`}>About us</li></Link>
 			</ul>
 
 			<div className={styles.div_icons}>

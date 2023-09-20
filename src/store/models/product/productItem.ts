@@ -1,3 +1,5 @@
+import {CategoryApi, CategoryModel, normalizeCategory} from "./categoryItem.ts";
+
 export type ProductApi = {
 	id: number;
 	title: string;
@@ -6,13 +8,7 @@ export type ProductApi = {
 	images: string[];
 	creationAt: string;
 	updatedAt: string;
-	category: {
-		id: number;
-		name: string;
-		image: string;
-		creationAt: string;
-		updatedAt: string;
-	};
+	category: CategoryApi;
 };
 
 export type ProductModel = {
@@ -23,13 +19,7 @@ export type ProductModel = {
 	images: string[];
 	creationAt: Date | undefined;
 	updatedAt: Date | undefined;
-	category: {
-		id: number;
-		name: string;
-		image: string;
-		creationAt: Date | undefined;
-		updatedAt: Date | undefined;
-	};
+	category: CategoryModel;
 };
 
 export const normalizeProduct = (from: ProductApi): ProductModel => ({
@@ -40,11 +30,5 @@ export const normalizeProduct = (from: ProductApi): ProductModel => ({
 	images: from.images,
 	creationAt: new Date(from.creationAt),
 	updatedAt: new Date(from.updatedAt),
-	category: {
-		id: from.category.id,
-		name: from.category.name,
-		image: from.category.image,
-		creationAt: new Date(from.category.creationAt),
-		updatedAt: new Date(from.category.updatedAt),
-		}
+	category: normalizeCategory(from.category)
 });

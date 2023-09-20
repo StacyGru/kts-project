@@ -40,7 +40,7 @@
   padding: 0 5px;
 }
 
-.div_navigation_item:first-child {
+.div_navigation_item.active {
   border-bottom: 3px solid $accent-green;
   color: $accent-green;
 }

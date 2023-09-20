@@ -103,7 +103,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 		<div className={`${styles.multidropdown} ${className}`} ref={dropdownRef}>
 			<Input
 				ref={inputRef}
-				placeholder={selectedOptions.length === 0 ? 'Filters' : undefined}
+				placeholder={selectedOptions.length === 0 ? 'Filter' : undefined}
 				value={getValues(selectedOptions)}
 				onChange={handleInputChange}
 				onFocus={handleFocus}

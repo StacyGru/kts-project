@@ -52,18 +52,7 @@ export default class ProductStore {
 	}
 
 	get productList(): ProductModel[] {
-		const searchQuery = globalStore.searchQuery;
-		const selectedFilters = globalStore.selectedFilters;
-		let list = linearizeCollection(this._productList);
-		if (searchQuery !== "") {
-			list = list
-				.filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase()));
-		}
-		if (selectedFilters.length > 0) {
-			list = list
-				.filter((item) => selectedFilters
-					.some((filter) => item.category.id === filter.key));
-		}
+		const list = linearizeCollection(this._productList);
 		this._totalPages = Math.ceil(list.length / 9);
 		return list;
 	}
@@ -80,7 +69,10 @@ export default class ProductStore {
 		return this._totalPages;
 	}
 
-	async getProductList(): Promise<void> {
+	async getProductList(
+		title: string = globalStore.searchQuery,
+		categoryId: number[] = globalStore.selectedFilters.map((filter) => filter.key)
+	): Promise<void> {
 
 		this._meta = Meta.loading;
 		this._productList = getInitialCollectionModel();
@@ -90,9 +82,18 @@ export default class ProductStore {
 		runInAction(() => {
 			if (response.status === 200) {
 				try {
-					const list: ProductModel[] = [];
+					let list: ProductModel[] = [];
 					for (const item of response.data) {
 						list.push(normalizeProduct(item));
+					}
+					if (title !== "") {
+						list = list
+							.filter((item) => item.title.toLowerCase().includes(title.toLowerCase()));
+					}
+					if (categoryId.length > 0) {
+						list = list
+							.filter((item) => categoryId
+								.some((category) => item.category.id === category));
 					}
 					this._productList = normalizeCollection(list, ((listItem) => listItem.id));
 					this._meta = Meta.success;
