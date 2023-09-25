@@ -1,1 +1,1 @@
-export { default } from "./GlobalStore.ts";
+export { default } from "./GlobalStore";

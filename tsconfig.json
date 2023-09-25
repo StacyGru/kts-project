@@ -1,34 +1,29 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-
+    "allowJs": true,
+    "sourceMap": true,
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "module": "es6",
+    "target": "es6",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "src",
     "paths": {
-      "components": ["components/*"],
-      "config": ["config/*"],
-      "styles": ["styles/*"],
-      "utils": ["utils/*"],
-      "assets": ["assets/*"],
-      "pages": ["App/pages/*"]
-    },
-    "include": ["src"],
-    "references": [{ "path": "./tsconfig.node.json" }]
+      "components/*": ["components/*"],
+      "config/*": ["config/*"],
+      "styles/*": ["styles/*"],
+      "utils/*": ["utils/*"],
+      "assets/*": ["assets/*"],
+      "pages/*": ["App/pages/*"],
+      "store/*": ["store/*"],
+      "models/*": ["store/models/*"]
     }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
-

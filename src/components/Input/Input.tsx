@@ -40,12 +40,6 @@ const Input: React.FC<InputProps> = ({
 		}
 	}
 
-	function handleClick(event) {
-		if (event && onIconClick) {
-			onIconClick(event.target.value);
-		}
-	}
-
 	return (
 		<>
 			<input
@@ -69,7 +63,7 @@ const Input: React.FC<InputProps> = ({
 					bottom: `calc((${height ?? '52px'} - 24px) / 2)`,
 					left: `calc(${width ?? '300px'} - 24px - 12px)`
 				}}
-				onClick={handleClick}
+				onClick={() => onIconClick}
 			>
 				{afterSlot ? afterSlot : null}
 			</label>

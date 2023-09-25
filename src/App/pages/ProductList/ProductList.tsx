@@ -1,15 +1,16 @@
 import React, {useCallback, useEffect} from "react";
 import Button from "components/Button";
 import Input from "components/Input";
-import MultiDropdown, {Option} from "components/MultiDropdown";
+import MultiDropdown from "components/MultiDropdown";
 import Text from "components/Text";
 import Card from "components/Card";
 import styles from "./ProductList.module.scss";
 import {Link, useNavigate} from "react-router-dom";
-import Pagination from "../../../components/Pagination";
+import Pagination from "components/Pagination";
 import {observer, useLocalObservable} from "mobx-react-lite";
-import ProductStore from "../../../store/ProductStore";
-import globalStore from "../../../store/RootStore/GlobalStore";
+import ProductStore from "store/ProductStore";
+import globalStore from "store/RootStore/GlobalStore";
+import {Option} from "components/MultiDropdown/MultiDropdown";
 
 const ProductList = () => {
 	const productStore = useLocalObservable(() => new ProductStore());
@@ -29,13 +30,19 @@ const ProductList = () => {
 		productStore.getProductList();
 		globalStore.getCategoryList();
 		if (urlSearchParams.get("page")) {
-			globalStore.setPage(parseInt(urlSearchParams.get("page")));
+			const pageParam = urlSearchParams.get("page");
+			const pageNumber = pageParam !== null ? parseInt(pageParam) : 1;
+			globalStore.setPage(pageNumber);
 		}
 		if (urlSearchParams.get("search")) {
-			globalStore.setSearchQuery(urlSearchParams.get("search"));
+			const searchParam = urlSearchParams.get("search");
+			const searchString = searchParam !== null ? searchParam : "";
+			globalStore.setSearchQuery(searchString);
 		}
 		if (urlSearchParams.get("filters")) {
-			globalStore.setFilters(filtersFromStringToOption(urlSearchParams.get("filters")));
+			const filtersParam = urlSearchParams.get("filters");
+			const filtersString = filtersParam !== null ? filtersFromStringToOption(filtersParam) : [];
+			globalStore.setFilters(filtersString);
 		}
 	}, []);
 
@@ -69,7 +76,7 @@ const ProductList = () => {
 		}
 	}
 
-	function handleKeyPress(event) {
+	function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
 		if (event.key === "Enter") {
 			event.preventDefault();
 			handleSearch();
@@ -102,7 +109,7 @@ const ProductList = () => {
 			</div>
 
 			<div className={styles.search}>
-				<Input width="1079px" placeholder="Search product" id="search-input" onKeyDown={handleKeyPress} defaultValue={urlSearchParams.get("search")}/>
+				<Input width="1079px" placeholder="Search product" id="search-input" onKeyDown={handleKeyPress} defaultValue={urlSearchParams.get("search") ?? undefined}/>
 				<Button onClick={handleSearch} id="search-button">Find now</Button>
 			</div>
 			<MultiDropdown

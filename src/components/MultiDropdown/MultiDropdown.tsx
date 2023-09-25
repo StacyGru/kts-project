@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import styles_input from 'components/Input/Input.module.scss';
-import Input from '../Input';
-import ArrowDownIcon from '../icons/ArrowDownIcon';
+import Input from 'components/Input';
+import ArrowDownIcon from 'components/Icons/ArrowDownIcon';
 import styles from './MultiDropdown.module.scss';
 
 export type Option = {
@@ -45,9 +45,9 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 	useEffect(() => {
 		if (isOpen) {
 			setFilteredOptions(options);
-			if (inputRef.current) {
-				inputRef.current.focus();
-			}
+			// if (inputRef.current) {
+			// 	inputRef.current.focus();
+			// }
 		}
 	}, [isOpen, options]);
 
@@ -102,7 +102,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 	return (
 		<div className={`${styles.multidropdown} ${className}`} ref={dropdownRef}>
 			<Input
-				ref={inputRef}
+				// ref={inputRef}
 				placeholder={selectedOptions.length === 0 ? 'Filter' : undefined}
 				value={getValues(selectedOptions)}
 				onChange={handleInputChange}

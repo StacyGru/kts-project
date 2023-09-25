@@ -1,17 +1,17 @@
-import {Meta} from "../../utils/meta.ts";
+import {Meta} from "utils/meta";
 import {action, computed, makeObservable, observable, runInAction} from "mobx";
 import axios from "axios";
 import {
 	normalizeProduct,
 	ProductApi,
 	ProductModel
-} from "../models/product";
+} from "models/product";
 import {
 	CollectionModel,
 	getInitialCollectionModel, getInitialProductItem,
 	linearizeCollection,
 	normalizeCollection
-} from "../models/shared/collection.ts";
+} from "models/shared/collection";
 import globalStore from "../RootStore/GlobalStore";
 
 type PrivateFields = "_meta" | "_productList" | "_totalPages" | "_productItem" | "_relatedItems";
@@ -70,7 +70,7 @@ export default class ProductStore {
 	}
 
 	async getProductList(
-		title: string = globalStore.searchQuery,
+		title: string | null = globalStore.searchQuery,
 		categoryId: number[] = globalStore.selectedFilters.map((filter) => filter.key)
 	): Promise<void> {
 

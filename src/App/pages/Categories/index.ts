@@ -1,1 +1,1 @@
-export { default } from "./Categories.tsx";
+export { default } from "./Categories";

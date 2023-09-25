@@ -1,1 +1,1 @@
-export { default } from "./SideArrowIcon.tsx";
+export { default } from "./SideArrowIcon";

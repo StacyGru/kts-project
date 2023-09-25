@@ -1,5 +1,3 @@
-import {CategoryApi, CategoryModel} from "./productItem.ts";
-
 export type CategoryApi = {
 	id: number;
 	name: string;

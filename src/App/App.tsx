@@ -1,10 +1,11 @@
-import Header from "../components/Header";
+import React, {ReactNode} from 'react';
+import Header from "components/Header";
 import ProductList from "pages/ProductList";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ProductPage from "pages/ProductPage";
 import "styles/Styles.scss";
-import Categories from "./pages/Categories";
-import AboutUs from "./pages/AboutUs";
+import Categories from "pages/Categories";
+import AboutUs from "pages/AboutUs";
 
 const App = () => {
 
@@ -23,4 +24,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;

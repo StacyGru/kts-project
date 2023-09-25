@@ -1,1 +1,1 @@
-export { default } from "./ProductStore.ts";
+export { default } from "./ProductStore";

@@ -1,4 +1,4 @@
-import {CategoryApi, CategoryModel, normalizeCategory} from "./categoryItem.ts";
+import {CategoryApi, CategoryModel, normalizeCategory} from "models/product/categoryItem";
 
 export type ProductApi = {
 	id: number;

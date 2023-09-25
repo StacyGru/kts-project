@@ -1,13 +1,11 @@
 import classNames from 'classnames';
 import React from 'react';
-import Loader from "../Loader";
-import Text from "../Text";
+import Loader from "components/Loader";
+import Text from "components/Text";
 import styles from "./Button.module.scss";
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-	/** Состояние загрузки */
 	loading?: boolean;
-	/** Текст кнопки */
 	children: React.ReactNode;
 	className?: string;
 	color?: 'white' | 'accent';

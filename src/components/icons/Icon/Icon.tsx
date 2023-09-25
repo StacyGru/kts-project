@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {SVGProps} from 'react';
 
-export type IconProps = {
+export interface IconProps extends SVGProps<SVGSVGElement> {
 	className?: string;
 	width?: number;
 	height?: number;
 	color?: string;
 	icon?: React.ReactNode;
-	rotate?: boolean;
+	rotate?: string;
 };
 
 const Icon: React.FC<IconProps> = ({

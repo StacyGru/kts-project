@@ -1,7 +1,7 @@
 import {action, computed, makeObservable, observable, runInAction} from 'mobx';
-import {Option} from "../../../components/MultiDropdown/MultiDropdown.tsx";
+import {Option} from "components/MultiDropdown/MultiDropdown";
 import {CategoryApi, CategoryModel, normalizeCategory} from "../../models/product";
-import {Meta} from "../../../utils/meta.ts";
+import {Meta} from "utils/meta";
 import axios from "axios";
 
 type PrivateFields = "_meta" | "_currentPage" | "_searchQuery" | "_selectedFilters" | "_categoryList";

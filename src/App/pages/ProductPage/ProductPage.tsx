@@ -4,9 +4,9 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import React, { useEffect } from "react";
 import Button from "components/Button";
 import Card from "components/Card";
-import SideArrowIcon from "components/Icons/SideArrowIcon/SideArrowIcon.tsx";
+import SideArrowIcon from "components/Icons/SideArrowIcon/SideArrowIcon";
 import {observer, useLocalObservable} from "mobx-react-lite";
-import ProductStore from "../../../store/ProductStore";
+import ProductStore from "store/ProductStore";
 
 const ProductPage = () => {
 	const productStore = useLocalObservable(() => new ProductStore());
