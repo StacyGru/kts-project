@@ -1,4 +1,4 @@
-import styles from "pages/ProductList/ProductList.module.scss";
+import styles from "pages/Products/Products.module.scss";
 import Text from "components/Text";
 import React from "react";
 

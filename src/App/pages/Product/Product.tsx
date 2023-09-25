@@ -1,4 +1,4 @@
-import styles from "./ProductPage.module.scss";
+import styles from "./Product.module.scss";
 import Text from "components/Text";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import React, { useEffect } from "react";
@@ -8,7 +8,7 @@ import SideArrowIcon from "components/Icons/SideArrowIcon/SideArrowIcon";
 import {observer, useLocalObservable} from "mobx-react-lite";
 import ProductStore from "store/ProductStore";
 
-const ProductPage = () => {
+const Product = () => {
 	const productStore = useLocalObservable(() => new ProductStore());
 	const productList = productStore.productList;
 	const product = productStore.productItem;
@@ -67,4 +67,4 @@ const ProductPage = () => {
 	) : null;
 }
 
-export default observer(ProductPage);
+export default observer(Product);

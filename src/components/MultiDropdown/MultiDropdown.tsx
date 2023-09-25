@@ -108,9 +108,8 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 				onChange={handleInputChange}
 				onFocus={handleFocus}
 				disabled={disabled}
-				afterSlot={<ArrowDownIcon color="secondary"/>}
+				afterSlot={<ArrowDownIcon color="secondary" onClick={handleIconClick}/>}
 				className={`${styles_input.input} ${isFocused && styles.focused}`}
-				onIconClick={handleIconClick}
 				{...props}
 			/>
 			{isOpen && !disabled && (
