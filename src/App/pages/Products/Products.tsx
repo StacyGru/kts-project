@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from "react";
 import styles from "./Products.module.scss";
-import { useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Pagination from "components/Pagination";
 import {observer, useLocalObservable} from "mobx-react-lite";
 import ProductStore from "store/ProductStore";
@@ -65,14 +65,15 @@ const Products = () => {
 	}, [currentPage]);
 
 	function filtersFromStringToOption(filters: string): Option[] {
-		const filtersAsString = filters.split(',');
-		return categoryList
-			.filter((category) => filtersAsString
-				.some((filterKey) => category.key === parseInt(filterKey)))
+		const optionStrings = filters.split(';');
+		return optionStrings.map(item => {
+			const [key, value] = item.split(',');
+			return {key: parseInt(key), value};
+		});
 	}
 
 	function filtersFromOptionToString(filters: Option[]): string {
-		return  filters.map((filter) => filter.key).join(',');
+		return filters.map((filter) => `${filter.key},${filter.value}`)[0];
 	}
 
 	return productList && categoryList ? (

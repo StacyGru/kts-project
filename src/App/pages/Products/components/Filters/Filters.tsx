@@ -26,6 +26,7 @@ const Filters: React.FC<FiltersProps> = ({
 
 	return (
 		<MultiDropdown
+			multiselect={false}
 			options={categoryList}
 			selectedOptions={selectedFilters}
 			onChange={handleMultiDropdownChange}
