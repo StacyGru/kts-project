@@ -1,5 +1,5 @@
-import Text from "components/Text";
 import React from "react";
+import Text from "components/Text";
 
 const Info = () => {
 	return (

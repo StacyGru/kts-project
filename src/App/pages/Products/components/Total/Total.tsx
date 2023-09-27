@@ -1,7 +1,7 @@
-import Text from "components/Text";
-import styles from "pages/Products/Products.module.scss";
 import React from "react";
+import Text from "components/Text";
 import {ProductModel} from "models/product";
+import styles from "pages/Products/Products.module.scss";
 
 export type TotalProps = {
 	productList: ProductModel[]

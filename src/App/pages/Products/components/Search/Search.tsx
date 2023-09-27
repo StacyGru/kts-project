@@ -1,8 +1,8 @@
-import Input from "components/Input";
-import Button from "components/Button/Button";
 import React from "react";
-import globalStore from "store/RootStore/GlobalStore/GlobalStore";
+import Button from "components/Button/Button";
+import Input from "components/Input";
 import ProductStore from "store/ProductStore";
+import rootStore from "store/RootStore";
 
 export type SearchProps = {
 	handlePageChange: (page: number) => void,
@@ -20,7 +20,7 @@ const Search: React.FC<SearchProps> = ({
 		const input = document.getElementById("search-input") as HTMLInputElement;
 		if (input) {
 			const value = input.value;
-			globalStore.setSearchQuery(value);
+			rootStore.global.setSearchQuery(value);
 			productStore.getProductList();
 			handlePageChange(1);
 		}

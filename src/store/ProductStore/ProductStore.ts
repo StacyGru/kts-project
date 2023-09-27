@@ -1,6 +1,5 @@
-import {Meta} from "utils/meta";
-import {action, computed, makeObservable, observable, runInAction} from "mobx";
 import axios from "axios";
+import {action, computed, makeObservable, observable, runInAction} from "mobx";
 import {
 	normalizeProduct,
 	ProductApi,
@@ -12,7 +11,8 @@ import {
 	linearizeCollection,
 	normalizeCollection
 } from "models/shared/collection";
-import globalStore from "../RootStore/GlobalStore";
+import rootStore from "store/RootStore";
+import {Meta} from "utils/meta";
 
 type PrivateFields = "_meta" | "_productList" | "_totalPages" | "_productItem" | "_relatedItems";
 
@@ -70,8 +70,8 @@ export default class ProductStore {
 	}
 
 	async getProductList(
-		title: string | null = globalStore.searchQuery,
-		categoryId: number[] = globalStore.selectedFilters.map((filter) => filter.key)
+		title: string | null = rootStore.global.searchQuery,
+		categoryId: number[] = rootStore.global.selectedFilters.map((filter) => filter.key)
 	): Promise<void> {
 
 		this._meta = Meta.loading;
@@ -116,7 +116,7 @@ export default class ProductStore {
 				try {
 					this._productItem = normalizeProduct(response.data);
 					this._meta = Meta.success;
-					globalStore.setPage(1);
+					rootStore.global.setPage(1);
 					return;
 				} catch {
 					this._meta = Meta.error;

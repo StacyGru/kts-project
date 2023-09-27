@@ -1,27 +1,30 @@
-import MultiDropdown, {Option} from "components/MultiDropdown/MultiDropdown";
 import React, {useEffect} from "react";
-import globalStore from "store/RootStore/GlobalStore/GlobalStore";
+import MultiDropdown, {Option} from "components/MultiDropdown/MultiDropdown";
 import ProductStore from "store/ProductStore";
+import rootStore from "store/RootStore";
 
 export type FiltersProps = {
 	categoryList: Option[],
 	selectedFilters: Option[],
-	productStore: ProductStore
+	productStore: ProductStore,
+	handlePageChange: (page: number) => void
 }
 
 const Filters: React.FC<FiltersProps> = ({
 		categoryList,
 		selectedFilters,
-		productStore
+		productStore,
+    handlePageChange
 	}) => {
 
 	useEffect(() => {
-		globalStore.getCategoryList();
+		rootStore.global.getCategoryList();
 	}, []);
 
 	const handleMultiDropdownChange = (newValue: Option[]) => {
-		globalStore.setFilters(newValue);
+		rootStore.global.setFilters(newValue);
 		productStore.getProductList();
+		handlePageChange(1);
 	};
 
 	return (

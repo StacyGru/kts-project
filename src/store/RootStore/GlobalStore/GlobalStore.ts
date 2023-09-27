@@ -1,8 +1,8 @@
+import axios from "axios";
 import {action, computed, makeObservable, observable, runInAction} from 'mobx';
 import {Option} from "components/MultiDropdown/MultiDropdown";
-import {CategoryApi, CategoryModel, normalizeCategory} from "../../models/product";
+import {CategoryApi, CategoryModel, normalizeCategory} from "models/product";
 import {Meta} from "utils/meta";
-import axios from "axios";
 
 type PrivateFields = "_meta" | "_currentPage" | "_searchQuery" | "_selectedFilters" | "_categoryList";
 
@@ -10,7 +10,7 @@ type PrivateFields = "_meta" | "_currentPage" | "_searchQuery" | "_selectedFilte
 
 const CATEGORY_LIST_URL: string = 'https://api.escuelajs.co/api/v1/categories';
 
-class GlobalStore {
+export default class GlobalStore {
 	private _meta: Meta = Meta.initial;
 
 	private _currentPage: number = 1;
@@ -100,5 +100,3 @@ class GlobalStore {
 		})
 	};
 }
-
-export default new GlobalStore();

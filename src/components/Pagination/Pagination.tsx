@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import styles from "./Pagination.module.scss";
 import Button from "components/Button";
 import SideArrowIcon from "components/Icons/SideArrowIcon/SideArrowIcon";
+import styles from "./Pagination.module.scss";
 
 interface PaginationProps {
 	currentPage: number;
