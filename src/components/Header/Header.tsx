@@ -1,3 +1,4 @@
+import React from 'react';
 import Cart from "assets/cart.svg";
 import Lalasia from "assets/lalasia.svg";
 import Logo from "assets/logo.svg";

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./Pagination.module.scss";
-import Button from "../Button";
-import SideArrowIcon from "../icons/SideArrowIcon/SideArrowIcon.tsx";
+import Button from "components/Button";
+import SideArrowIcon from "components/Icons/SideArrowIcon/SideArrowIcon";
 
 interface PaginationProps {
 	currentPage: number;
@@ -57,7 +57,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage,
 									onPageChange(currentPage + 1)}
 								}
 			        }>
-				<SideArrowIcon color={currentPage === pageNumbers.length ? 'secondary' : 'primary'} height={32} width={32} rotate={true}/>
+				<SideArrowIcon color={currentPage === pageNumbers.length ? 'secondary' : 'primary'} height={32} width={32} rotate="180deg"/>
 			</button>
 
 		</div>

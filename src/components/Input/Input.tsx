@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {MouseEventHandler} from 'react';
 import styles from "./Input.module.scss";
 
 export type InputProps = Omit<
@@ -6,18 +6,14 @@ export type InputProps = Omit<
 	'onChange' | 'value'
 > & {
 	defaultValue?: string,
-	/** Значение поля */
 	value?: string;
-	/** Callback, вызываемый при вводе данных в поле */
 	onChange?: (value: string) => void;
-	/** Слот для иконки справа */
 	afterSlot?: React.ReactNode;
 	disabled?: boolean;
 	width?: string;
 	height?: string;
 	placeholder?: string;
 	onKeyDown?: (Event: never) => void;
-	onIconClick?: (value: string) => void;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -30,19 +26,12 @@ const Input: React.FC<InputProps> = ({
 	                                     height,
 	                                     placeholder,
 	                                     onKeyDown,
-	                                     onIconClick,
 	                                     ...props
                                      }) => {
 
 	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
 		if (event && onChange) {
 			onChange(event.target.value)
-		}
-	}
-
-	function handleClick(event) {
-		if (event && onIconClick) {
-			onIconClick(event.target.value);
 		}
 	}
 
@@ -69,7 +58,6 @@ const Input: React.FC<InputProps> = ({
 					bottom: `calc((${height ?? '52px'} - 24px) / 2)`,
 					left: `calc(${width ?? '300px'} - 24px - 12px)`
 				}}
-				onClick={handleClick}
 			>
 				{afterSlot ? afterSlot : null}
 			</label>

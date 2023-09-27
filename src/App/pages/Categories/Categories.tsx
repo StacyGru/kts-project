@@ -1,5 +1,5 @@
-import styles from "../ProductList/ProductList.module.scss";
-import Text from "../../../components/Text";
+import styles from "pages/Products/Products.module.scss";
+import Text from "components/Text";
 import React from "react";
 
 const Categories = () => {
