@@ -1,9 +1,7 @@
 import React, {useEffect} from "react";
-import {Link} from "react-router-dom";
-import Card from "components/Card";
 import {Option} from "components/MultiDropdown";
+import ProductGrid from "components/ProductGrid";
 import {ProductModel} from "models/product";
-import styles from "pages/Products/Products.module.scss";
 import ProductStore from "store/ProductStore";
 import rootStore from "store/RootStore";
 
@@ -49,17 +47,9 @@ const ProductList: React.FC<ProductListProps> = ({
 	}, []);
 
 	return (
-		<>
-			{productList.slice(currentPage * 9 - 9, currentPage * 9).map((product) => (
-				<Link to={`product/${product.id}`} key={product.id} className={styles.link}>
-					<Card image={product.images[0]} className={styles.card}
-					      captionSlot={product.category.name} title={product.title}
-					      subtitle={product.description}
-					      contentSlot={`$${product.price}`} actionSlot="Add to Cart"
-					/>
-				</Link>
-			))}
-		</>
+		<ProductGrid
+			productList={productList.slice(currentPage * 9 - 9, currentPage * 9)}
+		/>
 	);
 }
 

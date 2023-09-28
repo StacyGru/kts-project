@@ -1,10 +1,10 @@
 import React from 'react';
+import {Link, useLocation} from "react-router-dom";
 import Cart from "assets/cart.svg";
 import Lalasia from "assets/lalasia.svg";
 import Logo from "assets/logo.svg";
 import User from "assets/user.svg";
 import styles from "./Header.module.scss";
-import {Link, useLocation} from "react-router-dom";
 
 const Header = () => {
 	const location = useLocation();
@@ -19,7 +19,7 @@ const Header = () => {
 
 			<ul className={styles.div_navigation}>
 				<Link to="/"><li
-					className={`${styles.div_navigation_item} ${location.pathname === "/" && styles.active}`}>Products</li></Link>
+					className={`${styles.div_navigation_item} ${(location.pathname === "/" || location.pathname.includes("product")) && styles.active}`}>Products</li></Link>
 				<Link to="/categories"><li
 					className={`${styles.div_navigation_item} ${location.pathname === "/categories" && styles.active}`}>Categories</li></Link>
 				<Link to="/about_us"><li

@@ -6,8 +6,6 @@ import {Meta} from "utils/meta";
 
 type PrivateFields = "_meta" | "_currentPage" | "_searchQuery" | "_selectedFilters" | "_categoryList";
 
-
-
 const CATEGORY_LIST_URL: string = 'https://api.escuelajs.co/api/v1/categories';
 
 export default class GlobalStore {

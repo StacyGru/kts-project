@@ -3,6 +3,7 @@ import Button from "components/Button/Button";
 import Input from "components/Input";
 import ProductStore from "store/ProductStore";
 import rootStore from "store/RootStore";
+import styles from "pages/Products/Products.module.scss";
 
 export type SearchProps = {
 	handlePageChange: (page: number) => void,
@@ -34,7 +35,7 @@ const Search: React.FC<SearchProps> = ({
 	}
 
 	return (
-		<>
+		<div className={styles.search}>
 			<Input
 				width="1079px"
 				placeholder="Search product"
@@ -48,7 +49,7 @@ const Search: React.FC<SearchProps> = ({
 			>
 				Find now
 			</Button>
-		</>
+		</div>
 	);
 }
 

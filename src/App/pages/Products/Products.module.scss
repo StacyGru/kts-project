@@ -25,15 +25,6 @@
   align-items: center;
 }
 
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
-  justify-content: space-between;
-  row-gap: 30px;
-  margin: $space-l 0;
-  align-items: stretch;
-}
-
 .link {
   display: flex;
   width: 360px;

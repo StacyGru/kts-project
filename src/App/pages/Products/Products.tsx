@@ -10,7 +10,6 @@ import Search from "pages/Products/components/Search";
 import Total from "pages/Products/components/Total";
 import ProductStore from "store/ProductStore";
 import rootStore from "store/RootStore";
-import styles from "./Products.module.scss";
 
 const Products = () => {
 	const productStore = useLocalObservable(() => new ProductStore());
@@ -53,17 +52,14 @@ const Products = () => {
 	return productList && categoryList ? (
 		<>
 
-			<div className={styles.text}>
-				<Info/>
-			</div>
+			<Info/>
 
-			<div className={styles.search}>
-				<Search
-					handlePageChange={handlePageChange}
-					productStore={productStore}
-					urlSearchParams={urlSearchParams}
-				/>
-			</div>
+			<Search
+				handlePageChange={handlePageChange}
+				productStore={productStore}
+				urlSearchParams={urlSearchParams}
+			/>
+
 			<Filters
 				categoryList={categoryList}
 				selectedFilters={selectedFilters}
@@ -71,19 +67,15 @@ const Products = () => {
 				handlePageChange={handlePageChange}
 			/>
 
-			<div className={styles.total}>
-				<Total
-					productList={productList}
-				/>
-			</div>
+			<Total
+				productList={productList}
+			/>
 
-			<div className={styles.products}>
-				<ProductList
-					productList={productList}
-					currentPage={currentPage}
-					productStore={productStore}
-				/>
-			</div>
+			<ProductList
+				productList={productList}
+				currentPage={currentPage}
+				productStore={productStore}
+			/>
 
 			{totalPages > 1
 				? <Pagination
