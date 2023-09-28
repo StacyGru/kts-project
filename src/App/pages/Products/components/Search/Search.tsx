@@ -1,30 +1,28 @@
-import React from "react";
+import React, {useState} from "react";
 import Button from "components/Button/Button";
 import Input from "components/Input";
+import styles from "pages/Products/Products.module.scss";
 import ProductStore from "store/ProductStore";
 import rootStore from "store/RootStore";
-import styles from "pages/Products/Products.module.scss";
 
 export type SearchProps = {
 	handlePageChange: (page: number) => void,
 	productStore: ProductStore,
-	urlSearchParams: URLSearchParams
+	urlSearchParams: URLSearchParams,
 }
 
 const Search: React.FC<SearchProps> = ({
 		handlePageChange,
 		productStore,
-	  urlSearchParams
+	  urlSearchParams,
   }) => {
 
+	const [searchString, setSearchString] = useState(urlSearchParams.get("search") ?? "");
+
 	function handleSearch() {
-		const input = document.getElementById("search-input") as HTMLInputElement;
-		if (input) {
-			const value = input.value;
-			rootStore.global.setSearchQuery(value);
-			productStore.getProductList();
-			handlePageChange(1);
-		}
+		rootStore.global.setSearchQuery(searchString);
+		productStore.getProductList();
+		handlePageChange(1);
 	}
 
 	function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -41,7 +39,8 @@ const Search: React.FC<SearchProps> = ({
 				placeholder="Search product"
 				id="search-input"
 				onKeyDown={handleKeyPress}
-				defaultValue={urlSearchParams.get("search") ?? undefined}
+				value={searchString}
+				onChange={(value) => setSearchString(value)}
 			/>
 			<Button
 				onClick={handleSearch}
