@@ -1,4 +1,4 @@
-import React, {MouseEventHandler} from 'react';
+import React from 'react';
 import styles from "./Input.module.scss";
 
 export type InputProps = Omit<
@@ -12,6 +12,7 @@ export type InputProps = Omit<
 	disabled?: boolean;
 	width?: string;
 	height?: string;
+	flexGrow?: string;
 	placeholder?: string;
 	onKeyDown?: (Event: never) => void;
 };
@@ -22,8 +23,9 @@ const Input: React.FC<InputProps> = ({
 	onChange,
 	afterSlot,
 	disabled = false,
-	width = "300px",
+	width ,
 	height,
+	flexGrow,
 	placeholder,
 	onKeyDown,
 	...props
@@ -49,18 +51,21 @@ const Input: React.FC<InputProps> = ({
 				{...props}
 				style={{
 					height: height,
-					width: width
+					width: width,
+					flexGrow: flexGrow
 				}}
 			/>
-			<label
-				className={styles.label}
-				style={{
-					bottom: `calc((${height ?? '52px'} - 24px) / 2)`,
-					left: `calc(${width ?? '300px'} - 24px - 12px)`
-				}}
-			>
-				{afterSlot ? afterSlot : null}
-			</label>
+			{afterSlot
+				? <label
+						className={styles.label}
+						style={{
+							bottom: `calc((${height ?? '52px'} - 24px) / 2)`,
+							left: `calc(${width ?? '300px'} - 24px - 12px)`
+						}}
+					>
+						{afterSlot}
+					</label>
+				: null}
 		</>
 	);
 };

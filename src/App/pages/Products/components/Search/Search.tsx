@@ -35,12 +35,12 @@ const Search: React.FC<SearchProps> = ({
 	return (
 		<div className={styles.search}>
 			<Input
-				width="1079px"
 				placeholder="Search product"
 				id="search-input"
 				onKeyDown={handleKeyPress}
 				value={searchString}
 				onChange={(value) => setSearchString(value)}
+				flexGrow="1"
 			/>
 			<Button
 				onClick={handleSearch}

@@ -53,7 +53,7 @@ export default class ProductStore {
 
 	get productList(): ProductModel[] {
 		const list = linearizeCollection(this._productList);
-		this._totalPages = Math.ceil(list.length / 9);
+		this._totalPages = Math.ceil(list.length / 12);
 		return list;
 	}
 

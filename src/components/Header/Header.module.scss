@@ -11,6 +11,12 @@
   padding: 0 100px;
 }
 
+@media screen and (min-width: 1700px) {
+  .header {
+    padding: 0 10%;
+  }
+}
+
 .logo-block {
   display: flex;
   gap: $space-xs;

@@ -1,0 +1,9 @@
+.parent {
+  padding: 0 100px;
+}
+
+@media screen and (min-width: 1700px) {
+  .parent {
+    padding: 0 10%;
+  }
+}

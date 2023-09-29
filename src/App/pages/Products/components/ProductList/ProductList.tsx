@@ -8,7 +8,7 @@ import rootStore from "store/RootStore";
 export type ProductListProps = {
 	productList: ProductModel[],
 	currentPage: number,
-	productStore: ProductStore
+	productStore: ProductStore,
 }
 
 const urlSearchParams = new URLSearchParams(window.location.search);
@@ -16,8 +16,10 @@ const urlSearchParams = new URLSearchParams(window.location.search);
 const ProductList: React.FC<ProductListProps> = ({
 		productList,
 		currentPage,
-		productStore
+		productStore,
 	}) => {
+
+	const productsPerPage: number = 12;
 
 	function filtersFromStringToOption(filters: string): Option[] {
 		const optionStrings = filters.split(';');
@@ -48,7 +50,7 @@ const ProductList: React.FC<ProductListProps> = ({
 
 	return (
 		<ProductGrid
-			productList={productList.slice(currentPage * 9 - 9, currentPage * 9)}
+			productList={productList.slice(currentPage * productsPerPage - productsPerPage, currentPage * productsPerPage)}
 		/>
 	);
 }

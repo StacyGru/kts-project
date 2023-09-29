@@ -41,7 +41,6 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 	const [filteredOptions, setFilteredOptions] = useState(options);
 	const [disabled, setDisabled] = useState(initialDisabled);
 	const dropdownRef = useRef<HTMLDivElement | null>(null);
-	const [isFocused, setIsFocused] = useState(false);
 
 	useEffect(() => {
 		if (isOpen) {
@@ -88,12 +87,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 			!dropdownRef.current.contains(event.target as Node)
 		) {
 			setIsOpen(false);
-			setIsFocused(false);
 		}
-	};
-
-	const handleFocus = () => {
-		setIsFocused(true);
 	};
 
 	const handleIconClick = () => {
@@ -106,10 +100,10 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 				placeholder={selectedOptions.length === 0 ? 'Filter' : undefined}
 				value={getValues(selectedOptions)}
 				onChange={handleInputChange}
-				onFocus={handleFocus}
 				disabled={disabled}
 				afterSlot={<ArrowDownIcon color="secondary" onClick={handleIconClick}/>}
 				className={styles_input.input}
+				width="300px"
 				{...props}
 			/>
 			{isOpen && !disabled && (
