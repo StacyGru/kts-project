@@ -13,18 +13,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
 	}) => {
 
 	return (
-		<div className={styles.card}>
+		<div className={styles["product-card"]}>
 			<img
 				src={product.images[0]}
 				alt={product.title}
-				className={styles.img_card}
+				className={styles["product-card__img"]}
 			/>
 			<div>
 				<Text
 					view="title"
 					tag="h1"
 					maxLines={parseInt("2")}
-					className={styles.title}
+					className={styles["product-card__title"]}
 				>
 					{product.title}
 				</Text>
@@ -33,18 +33,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
 					color="secondary"
 					weight="normal"
 					maxLines={parseInt("3")}
-					className={styles.description}
+					className={styles["product-card__description"]}
 				>
 					{product.description}
 				</Text>
 				<Text
 					view="title"
 					maxLines={parseInt("2")}
-					className={styles.price}
 				>
 					${product.price}
 				</Text>
-				<div className={styles.buttons}>
+				<div className={styles["product-card__buttons"]}>
 					<Button>Buy Now</Button>
 					<Button color="white">Add to Cart</Button>
 				</div>

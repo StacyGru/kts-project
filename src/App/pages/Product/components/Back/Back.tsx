@@ -17,7 +17,6 @@ const Back = () => {
 				width={32}
 				height={32}
 				color="primary"
-				className={styles.svg}
 			/>
 			<Text view="p-20">
 				Back

@@ -10,45 +10,45 @@
   border: 1px solid transparent;
 }
 
-.button_white, .button_white.loading_only:hover {
+.button--white, .button--white.button--loading:hover {
   background-color: $white;
   color: $primary-black;
   border: 1px solid $secondary-gray;
 }
 
-.button_accent, .button_accent.loading_only:hover {
+.button--accent, .button--accent.button--loading:hover {
   background-color: $accent-green;
   color: $white;
 }
 
-.button_accent:hover {
+.button--accent:hover {
   background-color: $button-primary-bg-hover;
   color: $white;
 }
 
-.button_white:hover {
-  background-color: $card-image-bg;
+.button--white:hover {
+  background-color: $button-primary-bg-disabled;
   color: $primary-black;
   border-color: transparent;
 }
 
-.button:disabled:not(.loading_only), .button:disabled:hover:not(.loading_only) {
+.button:disabled:not(.button--loading), .button:disabled:hover:not(.button--loading) {
   background-color: $button-primary-bg-disabled;
   color: $white;
   cursor: default;
   border-color: transparent;
 }
 
-.button_accent:active {
+.button--accent:active {
   background-color: $button-primary-bg-active;
   color: $white;
 }
 
-.button_white:active {
+.button--white:active {
   background-color: $secondary-gray;
   color: $white;
 }
 
-.button_text {
+.button__text {
   margin: 0;
 }

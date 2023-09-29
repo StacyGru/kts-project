@@ -17,17 +17,17 @@ export type InputProps = Omit<
 };
 
 const Input: React.FC<InputProps> = ({
-	                                     defaultValue,
-	                                     value,
-	                                     onChange,
-	                                     afterSlot,
-	                                     disabled = false,
-	                                     width = "300px",
-	                                     height,
-	                                     placeholder,
-	                                     onKeyDown,
-	                                     ...props
-                                     }) => {
+	defaultValue,
+	value,
+	onChange,
+	afterSlot,
+	disabled = false,
+	width = "300px",
+	height,
+	placeholder,
+	onKeyDown,
+	...props
+}) => {
 
 	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
 		if (event && onChange) {

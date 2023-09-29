@@ -5,7 +5,7 @@ import React from "react";
 const Categories = () => {
 	return (
 		<>
-			<div className={styles.text}>
+			<div className={styles.info__text}>
 				<Text view="title" tag="h1">Categories</Text>
 			</div>
 		</>

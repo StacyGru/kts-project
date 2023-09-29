@@ -12,12 +12,12 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 		productList
   }) => {
 	return (
-		<div className={styles.product_grid}>
+		<div className={styles["product-grid"]}>
 			{productList.map((product) => (
 				<Link
 					to={`/product/${product.id}`}
 					key={product.id}
-					className={styles.link}
+					className={styles["product-grid__link"]}
 				>
 					<Card
 						image={product.images[0]}

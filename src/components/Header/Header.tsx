@@ -12,23 +12,23 @@ const Header = () => {
 	return (
 		<header className={styles.header}>
 
-			<div className={styles.div_logo}>
-				<img src={Logo} alt="logo" className={styles.logo}/>
-				<img src={Lalasia} alt="lalasia" className={styles.lalasia}/>
+			<div className={styles["logo-block"]}>
+				<img src={Logo} alt="logo" className={styles["logo-block__logo"]}/>
+				<img src={Lalasia} alt="lalasia" className={styles["logo-block__lalasia"]}/>
 			</div>
 
-			<ul className={styles.div_navigation}>
+			<ul className={styles.navigation}>
 				<Link to="/"><li
-					className={`${styles.div_navigation_item} ${(location.pathname === "/" || location.pathname.includes("product")) && styles.active}`}>Products</li></Link>
+					className={`${styles.navigation__item} ${(location.pathname === "/" || location.pathname.includes("product")) && styles.active}`}>Products</li></Link>
 				<Link to="/categories"><li
-					className={`${styles.div_navigation_item} ${location.pathname === "/categories" && styles.active}`}>Categories</li></Link>
+					className={`${styles.navigation__item} ${location.pathname === "/categories" && styles.active}`}>Categories</li></Link>
 				<Link to="/about_us"><li
-					className={`${styles.div_navigation_item} ${location.pathname === "/about_us" && styles.active}`}>About us</li></Link>
+					className={`${styles.navigation__item} ${location.pathname === "/about_us" && styles.active}`}>About us</li></Link>
 			</ul>
 
-			<div className={styles.div_icons}>
-				<img className={styles.div_icons_item} src={Cart} alt="cart"/>
-				<img className={styles.div_icons_item} src={User} alt="user"/>
+			<div className={styles.icons}>
+				<img className={styles.icons__item} src={Cart} alt="cart"/>
+				<img className={styles.icons__item} src={User} alt="user"/>
 			</div>
 
 		</header>

@@ -12,8 +12,20 @@ const Total: React.FC<TotalProps> = ({
   }) => {
 	return (
 		<div className={styles.total}>
-			<Text view="title" tag="h2" className={styles.h2}>Total Product</Text>
-			<Text view="p-20" color="accent" weight="bold">{productList.length}</Text>
+			<Text
+				view="title"
+				tag="h2"
+				className={styles.total__h2}
+			>
+				Total Product
+			</Text>
+			<Text
+				view="p-20"
+				color="accent"
+				weight="bold"
+			>
+				{productList.length}
+			</Text>
 		</div>
 	);
 }

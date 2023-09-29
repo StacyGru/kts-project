@@ -101,7 +101,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 	}
 
 	return (
-		<div className={`${styles.multidropdown} ${className}`} ref={dropdownRef}>
+		<div className={`${styles["multi-dropdown"]} ${className}`} ref={dropdownRef}>
 			<Input
 				placeholder={selectedOptions.length === 0 ? 'Filter' : undefined}
 				value={getValues(selectedOptions)}
@@ -109,15 +109,18 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 				onFocus={handleFocus}
 				disabled={disabled}
 				afterSlot={<ArrowDownIcon color="secondary" onClick={handleIconClick}/>}
-				className={`${styles_input.input} ${isFocused && styles.focused}`}
+				className={styles_input.input}
 				{...props}
 			/>
 			{isOpen && !disabled && (
-				<ul className={styles.options_list}>
+				<ul className={styles["options-list"]}>
 					{filteredOptions.map((option) => (
 						<li
 							key={option.key}
-							className={`${styles.option} ${selectedOptions.some((selected) => selected.key === option.key) && styles.selected}`}
+							className={
+								`${styles["options-list__option"]} 
+								${selectedOptions.some((selected) => selected.key === option.key) 
+									&& styles["options-list__option--selected"]}`}
 							onClick={() => handleOptionClick(option)}
 						>
 							{option.value}

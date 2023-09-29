@@ -11,45 +11,45 @@
   padding: 0 100px;
 }
 
-.logo {
-  @include square(42px);
-}
-
-.lalasia {
-  width: 76.049px;
-  height: 18.768px;
-}
-
-.div_logo {
+.logo-block {
   display: flex;
   gap: $space-xs;
   align-items: center;
 }
 
-.div_navigation {
+.logo-block__logo {
+  @include square(42px);
+}
+
+.logo-block__lalasia {
+  width: 76.049px;
+  height: 18.768px;
+}
+
+.navigation {
   display: flex;
   align-items: center;
   @include font-size_line-height(18px);
   gap: $space-xl - 10;
 }
 
-.div_navigation_item {
+.navigation__item {
   display: block;
   list-style-type: none;
   line-height: 90px;
   padding: 0 5px;
 }
 
-.div_navigation_item.active {
+.navigation__item.active {
   border-bottom: 3px solid $accent-green;
   color: $accent-green;
 }
 
-.div_icons {
+.icons {
   display: flex;
   gap: $space-m;
 }
 
-.div_icons_item {
+.icons__item {
   @include square(30px);
 }

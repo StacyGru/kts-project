@@ -17,7 +17,6 @@ const RelatedItems: React.FC<RelatedItemsProps> = ({
 			<Text
 				view="title"
 				tag="h2"
-				className={styles.related_items_title}
 			>
 				Related Items
 			</Text>

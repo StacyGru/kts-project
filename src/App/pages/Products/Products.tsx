@@ -51,7 +51,6 @@ const Products = () => {
 
 	return productList && categoryList ? (
 		<>
-
 			<Info/>
 
 			<Search
@@ -85,7 +84,6 @@ const Products = () => {
 				/>
 				: null
 			}
-
 		</>
 	) : null;
 }

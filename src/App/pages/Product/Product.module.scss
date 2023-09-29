@@ -10,39 +10,27 @@
   margin-bottom: $space-l;
 }
 
-.card {
+.product-card {
   display: flex;
   gap: $space-xl;
   margin-bottom: $space-xl;
 }
 
-.img_card {
+.product-card__img {
   object-fit: cover;
   @include square(600px)
 }
 
-.title {
+.product-card__title {
   margin: 0 0 $space-m;
 }
 
-.description {
+.product-card__description {
   margin-bottom: calc($space-xl + $space-l);
 }
 
-.buttons {
+.product-card__buttons {
   display: flex;
   gap: $space-xl;
   margin-top: $space-xl;
-}
-
-.related_items_title {
-  font-size: 32px !important;
-
-}
-
-.link {
-  display: flex;
-  width: 360px;
-  margin: 0;
-  padding: 0;
 }
