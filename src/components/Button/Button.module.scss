@@ -24,6 +24,7 @@
 .button--accent:hover {
   background-color: $button-primary-bg-hover;
   color: $white;
+  outline: none;
 }
 
 .button--white:hover {
@@ -51,4 +52,10 @@
 
 .button__text {
   margin: 0;
+}
+
+.button--in_cart {
+  background-color: $white;
+  color: $accent-green;
+  outline: 2px solid $accent-green;
 }

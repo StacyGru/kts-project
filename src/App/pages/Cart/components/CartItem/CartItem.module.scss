@@ -1,0 +1,52 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.card {
+  display: flex;
+  background-color: $white;
+  align-items: stretch;
+  cursor: pointer;
+}
+
+.card:hover {
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+}
+
+.card__img {
+  object-fit: cover;
+  @include square(240px);
+  min-width: 240px;
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: $space-m $space-m;
+  justify-content: space-between;
+}
+
+.card__info {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxs;
+}
+
+.card__description {
+  height: calc(20px * 3);
+}
+
+.card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $space-xxs;
+}
+
+.delete {
+  @include square(30px);
+}
+
+p {
+  margin: 0;
+}

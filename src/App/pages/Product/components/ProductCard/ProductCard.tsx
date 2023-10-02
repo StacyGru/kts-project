@@ -1,8 +1,12 @@
+import {observer} from "mobx-react-lite";
 import React from "react";
+import {useNavigate} from "react-router-dom";
 import Button from "components/Button/Button";
+import styles_button from "components/Button/Button.module.scss";
 import Text from "components/Text";
 import {ProductModel} from "models/product";
 import styles from "pages/Product/Product.module.scss";
+import rootStore from "store/RootStore";
 
 export type ProductCardProps = {
 	product: ProductModel
@@ -11,6 +15,22 @@ export type ProductCardProps = {
 const ProductCard: React.FC<ProductCardProps> = ({
 		product
 	}) => {
+
+	const cartList = rootStore.cart.cartList;
+	const inCart = !!cartList.find((item) => item.id === product.id);
+	const navigate = useNavigate();
+
+	function handleButtonClick(product: ProductModel, event: React.MouseEvent) {
+		event.stopPropagation();
+		if (cartList.find((item) => item.id === product.id)) {
+			navigate("/cart");
+			window.scrollTo({
+				top: 0,
+			});
+		} else {
+			rootStore.cart.addToCart(product);
+		}
+	}
 
 	return (
 		<div className={styles["product-card"]}>
@@ -43,13 +63,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
 				>
 					${product.price}
 				</Text>
-				<div className={styles["product-card__buttons"]}>
-					<Button>Buy Now</Button>
-					<Button color="white">Add to Cart</Button>
-				</div>
+
+				<Button
+					onClick={(event) => handleButtonClick(product, event)}
+					className={`${styles["product-card__button"]} ${inCart ? styles_button["button--in_cart"] : null}`}
+				>
+					{inCart ? "In cart" : "Add to cart"}
+				</Button>
 			</div>
 		</div>
 	);
 }
 
-export default ProductCard;
+export default observer(ProductCard);

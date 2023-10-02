@@ -29,8 +29,6 @@
   margin-bottom: calc($space-xl + $space-l);
 }
 
-.product-card__buttons {
-  display: flex;
-  gap: $space-xl;
+.product-card__button {
   margin-top: $space-xl;
 }

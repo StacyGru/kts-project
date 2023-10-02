@@ -1,0 +1,27 @@
+@import "styles/variables";
+
+.h1 {
+  gap: $space-m;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 56px;
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: right;
+  gap: $space-s;
+  margin-top: $space-xl;
+  margin-bottom: $space-l;
+}
+
+.total__price {
+  display: flex;
+  gap: $space-xs;
+}
+
+.total__button {
+  height: fit-content;
+}

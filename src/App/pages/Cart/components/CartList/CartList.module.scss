@@ -1,0 +1,12 @@
+@import "styles/variables";
+
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: $space-m;
+}
+
+.text-empty {
+  text-align: center;
+}

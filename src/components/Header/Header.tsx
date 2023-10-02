@@ -27,7 +27,7 @@ const Header = () => {
 			</ul>
 
 			<div className={styles.icons}>
-				<img className={styles.icons__item} src={Cart} alt="cart"/>
+				<Link to="/cart"><img className={styles.icons__item} src={Cart} alt="cart"/></Link>
 				<img className={styles.icons__item} src={User} alt="user"/>
 			</div>
 

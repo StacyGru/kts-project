@@ -1,9 +1,9 @@
 import React from 'react';
-import Button from "components/Button";
 import Text from "components/Text";
-import styles from "./Card.module.scss";
+import styles from "./CartItem.module.scss";
+import Delete from "assets/delete.svg";
 
-export type CardProps = {
+export type CartItemProps = {
 	className?: string,
 	image: string;
 	captionSlot?: React.ReactNode;
@@ -12,18 +12,19 @@ export type CardProps = {
 	contentSlot?: React.ReactNode;
 	onClick?: React.MouseEventHandler;
 	actionSlot?: React.ReactNode;
+	onClickButton?: (event: React.MouseEvent) => void;
 };
 
-const Card: React.FC<CardProps> = ({
-	className,
-	image,
-	captionSlot,
-	title,
-	subtitle,
-	contentSlot = "",
-	onClick,
-	actionSlot
-}) => {
+const CartItem: React.FC<CartItemProps> = ({
+	                                          className,
+	                                          image,
+	                                          captionSlot,
+	                                          title,
+	                                          subtitle,
+	                                          contentSlot = "",
+	                                          onClick,
+	                                          onClickButton
+                                          }) => {
 
 	return (
 		<div
@@ -62,14 +63,16 @@ const Card: React.FC<CardProps> = ({
 						? <Text view="p-18" weight="bold">{contentSlot}</Text>
 						: null
 					}
-            {actionSlot
-	            ? <Button>{actionSlot}</Button>
-	            : null
-						}
+					<img
+						src={Delete}
+						alt="delete"
+						className={styles.delete}
+						onClick={onClickButton}
+					/>
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default Card;
+export default CartItem;
