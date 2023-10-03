@@ -8,17 +8,15 @@ import {
 } from "models/shared/collection";
 import rootStore from "store/RootStore";
 
-type PrivateFields = "_cartList" | "_totalPrice";
+type PrivateFields = "_cartList";
 
 export default class CartStore {
 	private _cartList: CollectionModel<number, ProductModel> = getInitialCollectionModel();
-	private _totalPrice: number = 0;
-	
+
 	constructor() {
 		makeObservable<CartStore, PrivateFields>(this, {
 			_cartList: observable,
-			_totalPrice: observable,
-			
+
 			cartList: computed,
 			totalPrice: computed,
 

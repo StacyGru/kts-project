@@ -1,13 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, useLocation} from "react-router-dom";
 import Cart from "assets/cart.svg";
 import Lalasia from "assets/lalasia.svg";
 import Logo from "assets/logo.svg";
 import User from "assets/user.svg";
+import rootStore from "store/RootStore";
 import styles from "./Header.module.scss";
 
 const Header = () => {
 	const location = useLocation();
+	const JWTJSON = localStorage.getItem("JWT");
+	const user = rootStore.user.user;
+
+	useEffect(() => {
+		if (JWTJSON) {
+			rootStore.user.setTokens(JSON.parse(JWTJSON));
+			rootStore.user.getUser();
+		}
+	}, []);
 
 	return (
 		<header className={styles.header}>
@@ -28,7 +38,7 @@ const Header = () => {
 
 			<div className={styles.icons}>
 				<Link to="/cart"><img className={styles.icons__item} src={Cart} alt="cart"/></Link>
-				<img className={styles.icons__item} src={User} alt="user"/>
+				<Link to={user ? "/user" : "/login"}><img className={styles.icons__item} src={User} alt="user"/></Link>
 			</div>
 
 		</header>

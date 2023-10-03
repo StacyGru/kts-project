@@ -1,13 +1,10 @@
-import styles from "pages/Products/Products.module.scss";
-import Text from "components/Text";
 import React from "react";
+import PageHeader from "components/PageHeader";
 
 const Categories = () => {
 	return (
 		<>
-			<div className={styles.info__text}>
-				<Text view="title" tag="h1">Categories</Text>
-			</div>
+			<PageHeader text="Categories"/>
 		</>
 	);
 }

@@ -59,3 +59,18 @@
   color: $accent-green;
   outline: 2px solid $accent-green;
 }
+
+.tab-header__button {
+  background-color: white;
+  color: $accent-green;
+  flex-grow: 1;
+}
+
+.tab-header__button:hover {
+  background-color: #DCE4E3;
+  color: $accent-green;
+}
+
+.tab-header__button--active {
+  border-bottom: 3px solid $accent-green;
+}

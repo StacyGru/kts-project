@@ -1,10 +1,9 @@
 import {observer} from "mobx-react-lite";
 import React, {useEffect} from "react";
-import Text from "components/Text";
+import PageHeader from "components/PageHeader";
 import CartList from "pages/Cart/components/CartList";
 import TotalPrice from "pages/Cart/components/TotalPrice";
 import rootStore from "store/RootStore";
-import styles from "./Cart.module.scss";
 
 const Cart = () => {
 	const cartListJSON = localStorage.getItem("cartList");
@@ -20,13 +19,7 @@ const Cart = () => {
 
 	return (
 		<>
-			<Text
-				className={styles.h1}
-				view="title"
-				tag="h1"
-			>
-				Cart
-			</Text>
+			<PageHeader text="Cart"/>
 
 			<CartList cartList={cartList}/>
 

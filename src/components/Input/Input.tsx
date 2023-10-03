@@ -15,6 +15,7 @@ export type InputProps = Omit<
 	flexGrow?: string;
 	placeholder?: string;
 	onKeyDown?: (Event: never) => void;
+	type?: string;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -28,6 +29,7 @@ const Input: React.FC<InputProps> = ({
 	flexGrow,
 	placeholder,
 	onKeyDown,
+	type = "text",
 	...props
 }) => {
 
@@ -40,7 +42,7 @@ const Input: React.FC<InputProps> = ({
 	return (
 		<>
 			<input
-				type="text"
+				type={type}
 				defaultValue={defaultValue}
 				value={value}
 				placeholder={placeholder}

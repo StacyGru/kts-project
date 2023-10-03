@@ -12,7 +12,7 @@
 }
 
 .pagination__button:not(.pagination__button--current, .pagination__button--dots):hover {
-  background-color: #DCE4E3;
+  background-color: #DCE4E3 !important;
 }
 
 .pagination__button:not(.pagination__button--current), .pagination__button--dots {
