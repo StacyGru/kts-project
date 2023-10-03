@@ -1,7 +1,8 @@
 import React from 'react';
+import Delete from "assets/delete.svg";
+import Image from "components/Image";
 import Text from "components/Text";
 import styles from "./CartItem.module.scss";
-import Delete from "assets/delete.svg";
 
 export type CartItemProps = {
 	className?: string,
@@ -31,7 +32,7 @@ const CartItem: React.FC<CartItemProps> = ({
 			className={`${styles.card} ${className}`}
 			onClick={onClick}
 		>
-			<img
+			<Image
 				src={image}
 				alt={title}
 				className={styles.card__img}

@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from "components/Button";
 import styles_button from "components/Button/Button.module.scss";
+import Image from "components/Image";
 import Text from "components/Text";
 import styles from "./ProductCard.module.scss";
 
@@ -34,7 +35,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 			className={`${styles.card} ${className}`}
 			onClick={onClick}
 		>
-			<img
+			<Image
 				src={image}
 				alt={title}
 				className={styles.card__img}

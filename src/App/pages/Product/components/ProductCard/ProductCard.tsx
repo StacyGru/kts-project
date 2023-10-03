@@ -3,6 +3,7 @@ import React from "react";
 import {useNavigate} from "react-router-dom";
 import Button from "components/Button/Button";
 import styles_button from "components/Button/Button.module.scss";
+import Image from "components/Image";
 import Text from "components/Text";
 import {ProductModel} from "models/product";
 import styles from "pages/Product/Product.module.scss";
@@ -34,7 +35,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
 	return (
 		<div className={styles["product-card"]}>
-			<img
+			<Image
 				src={product.images[0]}
 				alt={product.title}
 				className={styles["product-card__img"]}
