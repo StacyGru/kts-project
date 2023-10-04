@@ -16,12 +16,12 @@ const Products = () => {
 	const productList = productStore.productList;
 
 	const totalPages = productStore.totalPages;
-	const categoryList = rootStore.global.categoryList;
+	const categoryList = rootStore.queryParams.categoryList;
 	const navigate = useNavigate();
 
-	const currentPage = rootStore.global.currentPage;
-	const searchQuery = rootStore.global.searchQuery;
-	const selectedFilters = rootStore.global.selectedFilters;
+	const currentPage = rootStore.queryParams.currentPage;
+	const searchQuery = rootStore.queryParams.searchQuery;
+	const selectedFilters = rootStore.queryParams.selectedFilters;
 
 	const urlSearchParams = new URLSearchParams(window.location.search);
 
@@ -41,7 +41,7 @@ const Products = () => {
 			top: 0,
 			behavior: 'smooth',
 		});
-		rootStore.global.setPage(page);
+		rootStore.queryParams.setPage(page);
 		navigate(`?page=${page}`);
 	}, [currentPage]);
 

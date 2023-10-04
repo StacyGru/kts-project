@@ -8,7 +8,7 @@ type PrivateFields = "_meta" | "_currentPage" | "_searchQuery" | "_selectedFilte
 
 const CATEGORY_LIST_URL: string = 'https://api.escuelajs.co/api/v1/categories';
 
-export default class GlobalStore {
+export default class QueryParamsStore {
 	private _meta: Meta = Meta.initial;
 
 	private _currentPage: number = 1;
@@ -18,7 +18,7 @@ export default class GlobalStore {
 	private _categoryList: Option[] = [];
 
 	constructor() {
-		makeObservable<GlobalStore, PrivateFields>(this, {
+		makeObservable<QueryParamsStore, PrivateFields>(this, {
 			_meta: observable,
 			_currentPage: observable,
 			_searchQuery: observable,

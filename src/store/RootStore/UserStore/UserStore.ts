@@ -29,7 +29,8 @@ export default class UserStore {
 			setTokens: action.bound,
 			logIn: action.bound,
 			getUser: action.bound,
-			refreshToken: action.bound
+			refreshToken: action.bound,
+			logOut: action.bound
 		});
 	}
 
@@ -128,5 +129,13 @@ export default class UserStore {
 				}
 			});
 		}
+	}
+
+	logOut() {
+		this._user = undefined;
+		this._tokens = undefined;
+		rootStore.order.emptyOrderList();
+		localStorage.removeItem("JWT");
+		localStorage.removeItem("orderList");
 	}
 }

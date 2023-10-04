@@ -70,8 +70,8 @@ export default class ProductStore {
 	}
 
 	async getProductList(
-		title: string | null = rootStore.global.searchQuery,
-		categoryId: number[] = rootStore.global.selectedFilters.map((filter) => filter.key)
+		title: string | null = rootStore.queryParams.searchQuery,
+		categoryId: number[] = rootStore.queryParams.selectedFilters.map((filter) => filter.key)
 	): Promise<void> {
 
 		this._meta = Meta.loading;
@@ -116,7 +116,7 @@ export default class ProductStore {
 				try {
 					this._productItem = normalizeProduct(response.data);
 					this._meta = Meta.success;
-					rootStore.global.setPage(1);
+					rootStore.queryParams.setPage(1);
 					return;
 				} catch {
 					this._meta = Meta.error;

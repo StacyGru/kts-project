@@ -1,9 +1,11 @@
 import CartStore from "store/RootStore/CartStore";
-import GlobalStore from "store/RootStore/GlobalStore";
+import OrderStore from "store/RootStore/OrderStore";
+import QueryParamsStore from "store/RootStore/QueryParamsStore";
 import UserStore from "store/RootStore/UserStore";
 
 export default class RootStore {
-	readonly global = new GlobalStore();
+	readonly queryParams = new QueryParamsStore();
 	readonly cart = new CartStore();
 	readonly user = new UserStore();
+	readonly order = new OrderStore();
 }

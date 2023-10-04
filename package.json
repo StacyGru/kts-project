@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@hot-loader/react-dom": "^17.0.2",
+    "@types/luxon": "^3.3.2",
     "@types/styled-components": "^5.1.26",
     "axios": "^1.5.1",
     "classnames": "^2.3.2",
+    "luxon": "^3.4.3",
     "mobx": "^6.10.2",
     "mobx-persist": "^0.4.1",
     "mobx-react-lite": "^4.0.4",

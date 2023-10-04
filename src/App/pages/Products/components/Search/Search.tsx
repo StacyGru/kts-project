@@ -20,7 +20,7 @@ const Search: React.FC<SearchProps> = ({
 	const [searchString, setSearchString] = useState(urlSearchParams.get("search") ?? "");
 
 	function handleSearch() {
-		rootStore.global.setSearchQuery(searchString);
+		rootStore.queryParams.setSearchQuery(searchString);
 		productStore.getProductList();
 		handlePageChange(1);
 	}

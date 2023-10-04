@@ -33,17 +33,17 @@ const ProductList: React.FC<ProductListProps> = ({
 		if (urlSearchParams.get("page")) {
 			const pageParam = urlSearchParams.get("page");
 			const pageNumber = pageParam !== null ? parseInt(pageParam) : 1;
-			rootStore.global.setPage(pageNumber);
+			rootStore.queryParams.setPage(pageNumber);
 		}
 		if (urlSearchParams.get("search")) {
 			const searchParam = urlSearchParams.get("search");
 			const searchString = searchParam !== null ? searchParam : "";
-			rootStore.global.setSearchQuery(searchString);
+			rootStore.queryParams.setSearchQuery(searchString);
 		}
 		if (urlSearchParams.get("filters")) {
 			const filtersParam = urlSearchParams.get("filters");
 			const filtersString = filtersParam !== null ? filtersFromStringToOption(filtersParam) : [];
-			rootStore.global.setFilters(filtersString);
+			rootStore.queryParams.setFilters(filtersString);
 		}
 		productStore.getProductList();
 	}, []);

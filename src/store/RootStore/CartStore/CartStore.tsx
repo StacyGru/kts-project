@@ -7,7 +7,6 @@ import {
 	linearizeCollection,
 	normalizeCollection
 } from "models/shared/collection";
-import rootStore from "store/RootStore";
 
 type PrivateFields = "_cartList";
 
@@ -25,7 +24,8 @@ export default class CartStore {
 			setCartList: action.bound,
 			deleteFromCartList: action.bound,
 			increaseItemAmount: action.bound,
-			decreaseItemAmount: action.bound
+			decreaseItemAmount: action.bound,
+			emptyCartList: action.bound
 		});
 	}
 
@@ -46,7 +46,7 @@ export default class CartStore {
 		const list = linearizeCollection(this._cartList);
 		list.push({product, amount: 1});
 		this._cartList = normalizeCollection(list, (item) => item.product.id);
-		const cartListJSON = JSON.stringify(rootStore.cart.cartList);
+		const cartListJSON = JSON.stringify(this.cartList);
 		localStorage.setItem("cartList", cartListJSON);
 	}
 
@@ -54,7 +54,7 @@ export default class CartStore {
 		let list = linearizeCollection(this._cartList);
 		list = list.filter(item => item.product.id !== product.id);
 		this._cartList = normalizeCollection(list, (item) => item.product.id);
-		const cartListJSON = JSON.stringify(rootStore.cart.cartList);
+		const cartListJSON = JSON.stringify(this.cartList);
 		localStorage.setItem("cartList", cartListJSON);
 	}
 
@@ -67,7 +67,7 @@ export default class CartStore {
 			return item;
 		});
 		this._cartList = normalizeCollection(list, (item) => item.product.id);
-		const cartListJSON = JSON.stringify(rootStore.cart.cartList);
+		const cartListJSON = JSON.stringify(this.cartList);
 		localStorage.setItem("cartList", cartListJSON);
 	}
 
@@ -80,7 +80,11 @@ export default class CartStore {
 			return item;
 		});
 		this._cartList = normalizeCollection(list, (item) => item.product.id);
-		const cartListJSON = JSON.stringify(rootStore.cart.cartList);
+		const cartListJSON = JSON.stringify(this.cartList);
 		localStorage.setItem("cartList", cartListJSON);
+	}
+
+	emptyCartList() {
+		this._cartList = getInitialCollectionModel();
 	}
 }

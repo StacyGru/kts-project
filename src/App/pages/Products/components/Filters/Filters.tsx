@@ -18,11 +18,11 @@ const Filters: React.FC<FiltersProps> = ({
 	}) => {
 
 	useEffect(() => {
-		rootStore.global.getCategoryList();
+		rootStore.queryParams.getCategoryList();
 	}, []);
 
 	const handleMultiDropdownChange = (newValue: Option[]) => {
-		rootStore.global.setFilters(newValue);
+		rootStore.queryParams.setFilters(newValue);
 		productStore.getProductList();
 		handlePageChange(1);
 	};
