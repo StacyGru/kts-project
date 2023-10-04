@@ -1,7 +1,7 @@
 import React from 'react';
-import Icon from '../Icon';
-import {IconProps} from "components/Icons/Icon/Icon";
+import {IconProps} from "components/icons/Icon/Icon";
 import {Colors} from "utils/colors";
+import Icon from '../Icon';
 
 const ArrowDownIcon: React.FC<IconProps> = (props) => {
 

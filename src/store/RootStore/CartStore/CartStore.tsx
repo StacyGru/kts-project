@@ -1,5 +1,5 @@
 import {action, computed, makeObservable, observable} from "mobx";
-import {CartModel} from "models/cart/cartItem";
+import {CartModel} from "models/cart/CartModel";
 import {ProductModel} from "models/product";
 import {
 	CollectionModel,

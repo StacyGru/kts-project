@@ -1,7 +1,7 @@
 import axios from "axios";
 import {action, computed, makeObservable, observable, runInAction} from 'mobx';
-import {Option} from "components/MultiDropdown/MultiDropdown";
-import {CategoryApi, CategoryModel, normalizeCategory} from "models/product";
+import {MultiDropdownOption} from "components/MultiDropdown/MultiDropdown";
+import {CategoryApi, CategoryModel, normalizeCategory} from "models/category/CategoryModel";
 import {Meta} from "utils/meta";
 
 type PrivateFields = "_meta" | "_currentPage" | "_searchQuery" | "_selectedFilters" | "_categoryList";
@@ -13,9 +13,9 @@ export default class QueryParamsStore {
 
 	private _currentPage: number = 1;
 	private _searchQuery: string = "";
-	private _selectedFilters: Option[] = [];
+	private _selectedFilters: MultiDropdownOption[] = [];
 
-	private _categoryList: Option[] = [];
+	private _categoryList: MultiDropdownOption[] = [];
 
 	constructor() {
 		makeObservable<QueryParamsStore, PrivateFields>(this, {
@@ -50,11 +50,11 @@ export default class QueryParamsStore {
 		return this._searchQuery;
 	}
 
-	get selectedFilters(): Option[] {
+	get selectedFilters(): MultiDropdownOption[] {
 		return this._selectedFilters;
 	}
 
-	get categoryList(): Option[] {
+	get categoryList(): MultiDropdownOption[] {
 		return this._categoryList;
 	}
 
@@ -66,7 +66,7 @@ export default class QueryParamsStore {
 		this._searchQuery = value;
 	}
 
-	setFilters(filters: Option[]) {
+	setFilters(filters: MultiDropdownOption[]) {
 		this._selectedFilters = filters;
 	}
 

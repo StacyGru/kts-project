@@ -1,4 +1,4 @@
-import {CartModel} from "models/cart/cartItem";
+import {CartModel} from "models/cart/CartModel";
 
 export type OrderModel = {
 	id: number

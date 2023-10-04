@@ -1,7 +1,7 @@
 import axios from "axios";
 import {action, computed, makeObservable, observable, runInAction} from "mobx";
-import {JWTModel} from "models/product/JWTItem";
-import {UserModel} from "models/product/userItem";
+import {JWTModel} from "models/JWT/JWTModel";
+import {UserModel} from "models/user/UserModel";
 import rootStore from "store/RootStore";
 import {Meta} from "utils/meta";
 

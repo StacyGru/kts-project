@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Button from "components/Button";
-import SideArrowIcon from "components/Icons/SideArrowIcon/SideArrowIcon";
+import SideArrowIcon from "components/icons/SideArrowIcon/SideArrowIcon";
 import styles from "./Pagination.module.scss";
 
 interface PaginationProps {

@@ -1,7 +1,7 @@
 import {observer, useLocalObservable} from "mobx-react-lite";
 import React, {useCallback, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import {Option} from "components/MultiDropdown";
+import {MultiDropdownOption} from "components/MultiDropdown";
 import Pagination from "components/Pagination";
 import Filters from "pages/Products/components/Filters";
 import Info from "pages/Products/components/Info";
@@ -45,7 +45,7 @@ const Products = () => {
 		navigate(`?page=${page}`);
 	}, [currentPage]);
 
-	function filtersFromOptionToString(filters: Option[]): string {
+	function filtersFromOptionToString(filters: MultiDropdownOption[]): string {
 		return filters.map((filter) => `${filter.key},${filter.value}`)[0];
 	}
 

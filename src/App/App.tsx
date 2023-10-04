@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Header from "components/Header";
-import "styles/Styles.scss";
+import "styles/styles.scss";
 import AboutUs from "pages/AboutUs";
 import Cart from "pages/Cart";
 import Categories from "pages/Categories";

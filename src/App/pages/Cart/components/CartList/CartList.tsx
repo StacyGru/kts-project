@@ -2,7 +2,7 @@ import {observer} from "mobx-react-lite";
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import Text from "components/Text";
-import {CartModel} from "models/cart/cartItem";
+import {CartModel} from "models/cart/CartModel";
 import {ProductModel} from "models/product";
 import CartItem from "pages/Cart/components/CartItem";
 import rootStore from "store/RootStore";

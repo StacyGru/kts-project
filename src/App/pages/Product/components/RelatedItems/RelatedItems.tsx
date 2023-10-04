@@ -2,7 +2,6 @@ import React from "react";
 import ProductGrid from "components/ProductGrid";
 import Text from "components/Text";
 import {ProductModel} from "models/product";
-import styles from "pages/Product/Product.module.scss";
 
 export type RelatedItemsProps = {
 	relatedItems: ProductModel[]

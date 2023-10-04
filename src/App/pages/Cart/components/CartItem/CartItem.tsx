@@ -2,10 +2,10 @@ import {observer} from "mobx-react-lite";
 import React from 'react';
 import Delete from "assets/delete.svg";
 import Plus from "assets/plus.svg";
-import MinusIcon from "components/Icons/MinusIcon";
+import MinusIcon from "components/icons/MinusIcon";
 import Image from "components/Image";
 import Text from "components/Text";
-import {CartModel} from "models/cart/cartItem";
+import {CartModel} from "models/cart/CartModel";
 import rootStore from "store/RootStore";
 import styles from "./CartItem.module.scss";
 

@@ -1,35 +1,27 @@
 import React, {useEffect, useRef, useState} from 'react';
-import styles_input from 'components/Input/Input.module.scss';
+import ArrowDownIcon from 'components/icons/ArrowDownIcon';
 import Input from 'components/Input';
-import ArrowDownIcon from 'components/Icons/ArrowDownIcon';
+import styles_input from 'components/Input/Input.module.scss';
 import styles from './MultiDropdown.module.scss';
 
-export type Option = {
+export type MultiDropdownOption = {
 	key: number;
 	value: string;
 };
 
-
-const OPTIONS = [
-	{key: 1, value: 'Moscow'},
-	{key: 2, value: 'Saint Petersburg'},
-	{key: 3, value: 'Ekaterinburg'},
-];
-
-
 export type MultiDropdownProps = {
 	className?: string;
-	options?: Option[];
-	selectedOptions: Option[];
+	options: MultiDropdownOption[];
+	selectedOptions: MultiDropdownOption[];
 	multiselect: boolean;
-	onChange: (value: Option[]) => void;
+	onChange: (value: MultiDropdownOption[]) => void;
 	disabled?: boolean;
-	getValues: (value: Option[]) => string;
+	getValues: (value: MultiDropdownOption[]) => string;
 };
 
 const MultiDropdown: React.FC<MultiDropdownProps> = ({
 																											 className,
-																											 options = OPTIONS,
+																											 options,
 																											 selectedOptions,
 																											 onChange,
 	                                                     multiselect,
@@ -38,6 +30,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 																											 ...props
 																										 }) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [inputValue, setInputValue] = useState('');
 	const [filteredOptions, setFilteredOptions] = useState(options);
 	const [disabled, setDisabled] = useState(initialDisabled);
 	const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -60,16 +53,18 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 	}, [initialDisabled]);
 
 	const handleInputChange = (newValue: string) => {
-		if (disabled) {
+		if (disabled || selectedOptions.length > 0) {
 			return;
 		}
+		setInputValue(newValue);
+		setIsOpen(true);
 		const filtered = options.filter((option) =>
 			option.value.toLowerCase().includes(newValue.toLowerCase())
 		);
 		setFilteredOptions(filtered);
 	};
 
-	const handleOptionClick = (clickedOption: Option) => {
+	const handleOptionClick = (clickedOption: MultiDropdownOption) => {
 		const isSelected = selectedOptions.some((option) => option.key === clickedOption.key);
 		if (isSelected) {
 			onChange(selectedOptions.filter((option) => option.key !== clickedOption.key));
@@ -98,16 +93,21 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 		<div className={`${styles["multi-dropdown"]} ${className}`} ref={dropdownRef}>
 			<Input
 				placeholder={selectedOptions.length === 0 ? 'Filter' : undefined}
-				value={getValues(selectedOptions)}
+				value={selectedOptions.length === 0 ? inputValue : getValues(selectedOptions)}
 				onChange={handleInputChange}
 				disabled={disabled}
-				afterSlot={<ArrowDownIcon color="secondary" onClick={handleIconClick}/>}
+				afterSlot={<ArrowDownIcon width={24} height={24} color="secondary" onClick={handleIconClick}/>}
 				className={styles_input.input}
 				width="300px"
 				{...props}
 			/>
 			{isOpen && !disabled && (
-				<ul className={styles["options-list"]}>
+				<ul
+					className={styles["options-list"]}
+					style={{
+						height: filteredOptions.length < 5 ? `auto` : `${47 * 5}px`,
+						overflowY: filteredOptions.length < 5 ? `auto` : `scroll`
+					}}>
 					{filteredOptions.map((option) => (
 						<li
 							key={option.key}

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Option} from "components/MultiDropdown";
+import {MultiDropdownOption} from "components/MultiDropdown";
 import ProductGrid from "components/ProductGrid";
 import {ProductModel} from "models/product";
 import ProductStore from "store/ProductStore";
@@ -21,7 +21,7 @@ const ProductList: React.FC<ProductListProps> = ({
 
 	const productsPerPage: number = 12;
 
-	function filtersFromStringToOption(filters: string): Option[] {
+	function filtersFromStringToOption(filters: string): MultiDropdownOption[] {
 		const optionStrings = filters.split(';');
 		return optionStrings.map(item => {
 			const [key, value] = item.split(',');

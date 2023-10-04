@@ -1,6 +1,6 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import SideArrowIcon from "components/Icons/SideArrowIcon";
+import SideArrowIcon from "components/icons/SideArrowIcon";
 import Text from "components/Text";
 import styles from "pages/Product/Product.module.scss";
 
