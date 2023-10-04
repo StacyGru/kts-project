@@ -25,3 +25,10 @@
 .total__button {
   height: fit-content;
 }
+
+@media screen and (min-width: 1700px) {
+  .cart {
+    width: 60vw;
+    margin: auto;
+  }
+}

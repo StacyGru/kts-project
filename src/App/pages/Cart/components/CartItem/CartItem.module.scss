@@ -24,6 +24,7 @@
   flex-grow: 1;
   padding: $space-m $space-m;
   justify-content: space-between;
+  gap: $space-l;
 }
 
 .card__info {
