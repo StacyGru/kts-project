@@ -1,6 +1,11 @@
 @import "styles/variables";
 
+.carousel {
+  display: flex;
+}
+
 .product-grid {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
   column-gap: 20px;
@@ -13,5 +18,11 @@
 @media screen and (min-width: 1850px) {
   .product-grid {
     grid-template-columns: repeat(4, minmax(360px, 360px));
+  }
+}
+
+@media screen and (max-width: 1063px) {
+  .product-grid {
+    justify-content: center;
   }
 }

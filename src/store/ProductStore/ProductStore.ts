@@ -136,14 +136,8 @@ export default class ProductStore {
 				.filter((item) => item.id !== this._productItem.id);
 
 			const randomItems: ProductModel[] = [];
-			let maxRandomItems: number = 0;
-			if (productList.length >= 3) {
-				maxRandomItems = 3;
-			} else {
-				maxRandomItems = productList.length;
-			}
 
-			while (randomItems.length < maxRandomItems && productList.length > 0) {
+			while (randomItems.length < productList.length && productList.length > 0) {
 				const randomIndex = Math.floor(Math.random() * productList.length);
 				const randomItem = productList.splice(randomIndex, 1)[0];
 				randomItems.push(randomItem);

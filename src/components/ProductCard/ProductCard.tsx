@@ -1,3 +1,4 @@
+import {observer} from "mobx-react-lite";
 import React from 'react';
 import Button from "components/Button";
 import styles_button from "components/Button/Button.module.scss";
@@ -79,4 +80,4 @@ const ProductCard: React.FC<ProductCardProps> = ({
 	);
 };
 
-export default ProductCard;
+export default observer(ProductCard);
