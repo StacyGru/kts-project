@@ -1,7 +1,12 @@
+import {observer} from "mobx-react-lite";
 import React from 'react';
 import Delete from "assets/delete.svg";
+import Plus from "assets/plus.svg";
+import MinusIcon from "components/Icons/MinusIcon";
 import Image from "components/Image";
 import Text from "components/Text";
+import {CartModel} from "models/cart/cartItem";
+import rootStore from "store/RootStore";
 import styles from "./CartItem.module.scss";
 
 export type CartItemProps = {
@@ -14,6 +19,7 @@ export type CartItemProps = {
 	onClick?: React.MouseEventHandler;
 	actionSlot?: React.ReactNode;
 	onClickButton?: (event: React.MouseEvent) => void;
+	item: CartModel;
 };
 
 const CartItem: React.FC<CartItemProps> = ({
@@ -22,10 +28,22 @@ const CartItem: React.FC<CartItemProps> = ({
 	                                          captionSlot,
 	                                          title,
 	                                          subtitle,
-	                                          contentSlot = "",
 	                                          onClick,
-	                                          onClickButton
+	                                          onClickButton,
+																						item
                                           }) => {
+
+	function handleIncrease(event: React.MouseEvent, item: CartModel) {
+		event.stopPropagation();
+		rootStore.cart.increaseItemAmount(item.product);
+	}
+
+	function handleDecrease(event: React.MouseEvent, item: CartModel) {
+		event.stopPropagation();
+		if (item.amount !== 1) {
+			rootStore.cart.decreaseItemAmount(item.product);
+		}
+	}
 
 	return (
 		<div
@@ -60,14 +78,23 @@ const CartItem: React.FC<CartItemProps> = ({
 					</Text>
 				</div>
 				<div className={styles.card__footer}>
-					{contentSlot
-						? <Text view="p-18" weight="bold">{contentSlot}</Text>
-						: null
-					}
+					<div className={styles.amount}>
+						<MinusIcon
+							className={`${styles["button-amount"]} ${item.amount === 1 && styles["button-amount--disabled"]}`}
+							onClick={(event) => handleDecrease(event, item)}
+							color={item.amount === 1 ? "secondary" : "primary"}
+						/>
+						<Text view="p-20">{item.amount}</Text>
+						<img
+							src={Plus}
+							alt="plus"
+							className={styles["button-amount"]}
+							onClick={(event) => handleIncrease(event, item)}/>
+					</div>
+
 					<img
 						src={Delete}
 						alt="delete"
-						className={styles.delete}
 						onClick={onClickButton}
 					/>
 				</div>
@@ -76,4 +103,4 @@ const CartItem: React.FC<CartItemProps> = ({
 	);
 };
 
-export default CartItem;
+export default observer(CartItem);

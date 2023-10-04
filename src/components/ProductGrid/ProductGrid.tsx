@@ -29,7 +29,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 
 	function handleButtonClick(product: ProductModel, event: React.MouseEvent) {
 		event.stopPropagation();
-		if (cartList.find((item) => item.id === product.id)) {
+		if (cartList.find((item) => item.product.id === product.id)) {
 			navigate("/cart");
 			window.scrollTo({
 				top: 0,
@@ -49,7 +49,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 					title={product.title}
 					subtitle={product.description}
 					contentSlot={`$${product.price}`}
-					inCart={!!cartList.find((item) => item.id === product.id)}
+					inCart={!!cartList.find((item) => item.product.id === product.id)}
 					onClickButton={(event) => handleButtonClick(product, event)}
 					onClick={() => handleCardClick(product)}
 				/>

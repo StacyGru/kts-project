@@ -2,13 +2,14 @@ import {observer} from "mobx-react-lite";
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import Text from "components/Text";
+import {CartModel} from "models/cart/cartItem";
 import {ProductModel} from "models/product";
 import CartItem from "pages/Cart/components/CartItem";
 import rootStore from "store/RootStore";
 import styles from "./CartList.module.scss";
 
 export type CartListProps = {
-	cartList: ProductModel[]
+	cartList: CartModel[]
 }
 
 const CartList: React.FC<CartListProps> = ({
@@ -29,16 +30,17 @@ const CartList: React.FC<CartListProps> = ({
 	if (cartList.length > 0) {
 		return (
 			<div className={styles["cart-list"]}>
-				{cartList.map((product) => (
+				{cartList.map((item) => (
 					<CartItem
-						key={product.id}
-						image={product.images[0]}
-						captionSlot={product.category.name}
-						title={product.title}
-						subtitle={product.description}
-						contentSlot={`$${product.price}`}
-						onClickButton={(event) => handleButtonClick(product, event)}
-						onClick={() => handleCardClick(product)}
+						key={item.product.id}
+						image={item.product.images[0]}
+						captionSlot={item.product.category.name}
+						title={item.product.title}
+						subtitle={item.product.description}
+						contentSlot={`$${item.product.price}`}
+						onClickButton={(event) => handleButtonClick(item.product, event)}
+						onClick={() => handleCardClick(item.product)}
+						item={item}
 					/>
 				))}
 			</div>

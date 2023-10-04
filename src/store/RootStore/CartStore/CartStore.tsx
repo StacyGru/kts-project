@@ -1,4 +1,5 @@
 import {action, computed, makeObservable, observable} from "mobx";
+import {CartModel} from "models/cart/cartItem";
 import {ProductModel} from "models/product";
 import {
 	CollectionModel,
@@ -11,7 +12,7 @@ import rootStore from "store/RootStore";
 type PrivateFields = "_cartList";
 
 export default class CartStore {
-	private _cartList: CollectionModel<number, ProductModel> = getInitialCollectionModel();
+	private _cartList: CollectionModel<number, CartModel> = getInitialCollectionModel();
 
 	constructor() {
 		makeObservable<CartStore, PrivateFields>(this, {
@@ -22,35 +23,63 @@ export default class CartStore {
 
 			addToCart: action.bound,
 			setCartList: action.bound,
-			deleteFromCartList: action.bound
+			deleteFromCartList: action.bound,
+			increaseItemAmount: action.bound,
+			decreaseItemAmount: action.bound
 		});
 	}
 
-	get cartList(): ProductModel[] {
+	get cartList(): CartModel[] {
 		return linearizeCollection(this._cartList);
 	}
 
 	get totalPrice(): number {
 		return linearizeCollection(this._cartList)
-			.reduce((sum, item) => sum + item.price, 0);
+			.reduce((sum, item) => sum + item.product.price, 0);
 	}
 
-	setCartList(list: ProductModel[]) {
-		this._cartList = normalizeCollection(list, (product) => product.id);
+	setCartList(list: CartModel[]) {
+		this._cartList = normalizeCollection(list, (item) => item.product.id);
 	}
 
 	addToCart(product: ProductModel) {
 		const list = linearizeCollection(this._cartList);
-		list.push(product);
-		this._cartList = normalizeCollection(list, (product) => product.id);
+		list.push({product, amount: 1});
+		this._cartList = normalizeCollection(list, (item) => item.product.id);
 		const cartListJSON = JSON.stringify(rootStore.cart.cartList);
 		localStorage.setItem("cartList", cartListJSON);
 	}
 
 	deleteFromCartList(product: ProductModel) {
 		let list = linearizeCollection(this._cartList);
-		list = list.filter(item => item.id !== product.id);
-		this._cartList = normalizeCollection(list, (product) => product.id);
+		list = list.filter(item => item.product.id !== product.id);
+		this._cartList = normalizeCollection(list, (item) => item.product.id);
+		const cartListJSON = JSON.stringify(rootStore.cart.cartList);
+		localStorage.setItem("cartList", cartListJSON);
+	}
+
+	increaseItemAmount(product: ProductModel) {
+		let list = linearizeCollection(this._cartList);
+		list = list.map(item => {
+			if (item.product.id === product.id) {
+				return { ...item, amount: item.amount + 1 };
+			}
+			return item;
+		});
+		this._cartList = normalizeCollection(list, (item) => item.product.id);
+		const cartListJSON = JSON.stringify(rootStore.cart.cartList);
+		localStorage.setItem("cartList", cartListJSON);
+	}
+
+	decreaseItemAmount(product: ProductModel) {
+		let list = linearizeCollection(this._cartList);
+		list = list.map(item => {
+			if (item.product.id === product.id) {
+				return { ...item, amount: item.amount - 1 };
+			}
+			return item;
+		});
+		this._cartList = normalizeCollection(list, (item) => item.product.id);
 		const cartListJSON = JSON.stringify(rootStore.cart.cartList);
 		localStorage.setItem("cartList", cartListJSON);
 	}

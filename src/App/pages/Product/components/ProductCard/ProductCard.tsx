@@ -18,12 +18,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
 	}) => {
 
 	const cartList = rootStore.cart.cartList;
-	const inCart = !!cartList.find((item) => item.id === product.id);
+	const inCart = !!cartList.find((item) => item.product.id === product.id);
 	const navigate = useNavigate();
 
 	function handleButtonClick(product: ProductModel, event: React.MouseEvent) {
 		event.stopPropagation();
-		if (cartList.find((item) => item.id === product.id)) {
+		if (cartList.find((item) => item.product.id === product.id)) {
 			navigate("/cart");
 			window.scrollTo({
 				top: 0,

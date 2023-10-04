@@ -20,7 +20,7 @@
 
 .card__body {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-grow: 1;
   padding: $space-m $space-m;
   justify-content: space-between;
@@ -40,13 +40,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: $space-xxs;
-}
-
-.delete {
-  @include square(30px);
+  gap: $space-xl;
 }
 
 p {
   margin: 0;
+}
+
+.amount {
+  display: flex;
+  gap: $space-s;
+  align-items: center;
+  align-content: center;
+}
+
+.button-amount {
+  display: flex;
+}
+
+.button-amount--disabled {
+  cursor: default;
 }

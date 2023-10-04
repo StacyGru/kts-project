@@ -11,8 +11,8 @@ export interface IconProps extends SVGProps<SVGSVGElement> {
 
 const Icon: React.FC<IconProps> = ({
 																		 className,
-																		 width = 24,
-																		 height = 24,
+																		 width = 30,
+																		 height = 30,
 																		 color = 'inherit',
 																		 icon,
 																	 }) => {
