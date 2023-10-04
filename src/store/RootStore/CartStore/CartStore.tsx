@@ -35,7 +35,7 @@ export default class CartStore {
 
 	get totalPrice(): number {
 		return linearizeCollection(this._cartList)
-			.reduce((sum, item) => sum + item.product.price, 0);
+			.reduce((sum, item) => sum + item.product.price * item.amount, 0);
 	}
 
 	setCartList(list: CartModel[]) {

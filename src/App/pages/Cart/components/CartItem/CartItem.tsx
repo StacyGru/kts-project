@@ -76,6 +76,7 @@ const CartItem: React.FC<CartItemProps> = ({
 					>
 						{subtitle}
 					</Text>
+					<Text view="p-18" weight="bold">${item.amount * item.product.price}</Text>
 				</div>
 				<div className={styles.card__footer}>
 					<div className={styles.amount}>

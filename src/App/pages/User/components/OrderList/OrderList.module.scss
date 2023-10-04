@@ -9,3 +9,9 @@
 .table td {
  vertical-align: top;
 }
+
+.table__products-td {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxs;
+}

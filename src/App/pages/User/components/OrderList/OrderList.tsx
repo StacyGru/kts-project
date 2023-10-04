@@ -40,7 +40,7 @@ const OrderList = () => {
 							<td>{order.id}</td>
 							<td>{toMoscowDateTime(new Date(order.dateTime))}</td>
 							<td>${order.sum}</td>
-							<td>{order.items.map((item) => (
+							<td className={styles["table__products-td"]}>{order.items.map((item) => (
 								<p key={item.product.id}>{item.product.title}: ${item.product.price} x{item.amount}</p>
 							))}</td>
 						</tr>
