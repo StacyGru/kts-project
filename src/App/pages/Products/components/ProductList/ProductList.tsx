@@ -1,38 +1,57 @@
-import {Link} from "react-router-dom";
-import styles from "pages/Products/Products.module.scss";
-import Card from "components/Card";
 import React, {useEffect} from "react";
+import {MultiDropdownOption} from "components/MultiDropdown";
+import ProductGrid from "components/ProductGrid";
 import {ProductModel} from "models/product";
 import ProductStore from "store/ProductStore";
+import rootStore from "store/RootStore";
 
 export type ProductListProps = {
 	productList: ProductModel[],
 	currentPage: number,
-	productStore: ProductStore
+	productStore: ProductStore,
 }
+
+const urlSearchParams = new URLSearchParams(window.location.search);
 
 const ProductList: React.FC<ProductListProps> = ({
 		productList,
 		currentPage,
-		productStore
+		productStore,
 	}) => {
 
+	const productsPerPage: number = 12;
+
+	function filtersFromStringToOption(filters: string): MultiDropdownOption[] {
+		const optionStrings = filters.split(';');
+		return optionStrings.map(item => {
+			const [key, value] = item.split(',');
+			return {key: parseInt(key), value};
+		});
+	}
+
 	useEffect(() => {
+		if (urlSearchParams.get("page")) {
+			const pageParam = urlSearchParams.get("page");
+			const pageNumber = pageParam !== null ? parseInt(pageParam) : 1;
+			rootStore.queryParams.setPage(pageNumber);
+		}
+		if (urlSearchParams.get("search")) {
+			const searchParam = urlSearchParams.get("search");
+			const searchString = searchParam !== null ? searchParam : "";
+			rootStore.queryParams.setSearchQuery(searchString);
+		}
+		if (urlSearchParams.get("filters")) {
+			const filtersParam = urlSearchParams.get("filters");
+			const filtersString = filtersParam !== null ? filtersFromStringToOption(filtersParam) : [];
+			rootStore.queryParams.setFilters(filtersString);
+		}
 		productStore.getProductList();
 	}, []);
 
 	return (
-		<>
-			{productList.slice(currentPage * 9 - 9, currentPage * 9).map((product) => (
-				<Link to={`product/${product.id}`} key={product.id} className={styles.link}>
-					<Card image={product.images[0]} className={styles.card}
-					      captionSlot={product.category.name} title={product.title}
-					      subtitle={product.description}
-					      contentSlot={`$${product.price}`} actionSlot="Add to Cart"
-					/>
-				</Link>
-			))}
-		</>
+		<ProductGrid
+			productList={productList.slice(currentPage * productsPerPage - productsPerPage, currentPage * productsPerPage)}
+		/>
 	);
 }
 

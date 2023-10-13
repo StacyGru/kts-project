@@ -1,4 +1,4 @@
-import React, {MouseEventHandler} from 'react';
+import React from 'react';
 import styles from "./Input.module.scss";
 
 export type InputProps = Omit<
@@ -12,22 +12,26 @@ export type InputProps = Omit<
 	disabled?: boolean;
 	width?: string;
 	height?: string;
+	flexGrow?: string;
 	placeholder?: string;
 	onKeyDown?: (Event: never) => void;
+	type?: string;
 };
 
 const Input: React.FC<InputProps> = ({
-	                                     defaultValue,
-	                                     value,
-	                                     onChange,
-	                                     afterSlot,
-	                                     disabled = false,
-	                                     width = "300px",
-	                                     height,
-	                                     placeholder,
-	                                     onKeyDown,
-	                                     ...props
-                                     }) => {
+	defaultValue,
+	value,
+	onChange,
+	afterSlot,
+	disabled = false,
+	width ,
+	height,
+	flexGrow,
+	placeholder,
+	onKeyDown,
+	type = "text",
+	...props
+}) => {
 
 	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
 		if (event && onChange) {
@@ -38,7 +42,7 @@ const Input: React.FC<InputProps> = ({
 	return (
 		<>
 			<input
-				type="text"
+				type={type}
 				defaultValue={defaultValue}
 				value={value}
 				placeholder={placeholder}
@@ -49,18 +53,21 @@ const Input: React.FC<InputProps> = ({
 				{...props}
 				style={{
 					height: height,
-					width: width
+					width: width,
+					flexGrow: flexGrow
 				}}
 			/>
-			<label
-				className={styles.label}
-				style={{
-					bottom: `calc((${height ?? '52px'} - 24px) / 2)`,
-					left: `calc(${width ?? '300px'} - 24px - 12px)`
-				}}
-			>
-				{afterSlot ? afterSlot : null}
-			</label>
+			{afterSlot
+				? <label
+						className={styles.label}
+						style={{
+							bottom: `calc((${height ?? '52px'} - 24px) / 2)`,
+							left: `calc(${width ?? '300px'} - 24px - 12px)`
+						}}
+					>
+						{afterSlot}
+					</label>
+				: null}
 		</>
 	);
 };

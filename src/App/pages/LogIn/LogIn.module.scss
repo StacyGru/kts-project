@@ -1,0 +1,16 @@
+@import "styles/variables";
+
+.h1 {
+  gap: $space-m;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 56px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 25vw;
+  margin: auto;
+  gap: $space-m;
+}

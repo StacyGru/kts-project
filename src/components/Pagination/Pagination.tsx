@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import styles from "./Pagination.module.scss";
 import Button from "components/Button";
-import SideArrowIcon from "components/Icons/SideArrowIcon/SideArrowIcon";
+import SideArrowIcon from "components/icons/SideArrowIcon/SideArrowIcon";
+import styles from "./Pagination.module.scss";
 
 interface PaginationProps {
 	currentPage: number;
@@ -29,7 +29,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage,
 	return pages && (
 		<div className={styles.pagination}>
 
-			<button className={`${styles['arrow-button']} ${currentPage === 1 && styles.disabled}`}
+			<button className={`${styles['pagination__arrow-button']} ${currentPage === 1 && styles['pagination__arrow-button--disabled']}`}
 			        onClick={() => {
 				        if (currentPage !== 1) {
 					        onPageChange(currentPage - 1)}
@@ -44,14 +44,14 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage,
 					onClick={() => onPageChange(page)}
 					disabled={page === 0}
 					className={page === currentPage
-						? `${styles.button} ${styles.current} ${page === 0 && styles.dots}`
-						: `${styles.button} ${page === 0 && styles.dots}`}
+						? `${styles.pagination__button} ${styles["pagination__button--current"]} ${page === 0 && styles["pagination__button--dots"]}`
+						: `${styles.pagination__button} ${page === 0 && styles["pagination__button--dots"]}`}
 				>
 					{page === 0 ? "..." : page}
 				</Button>
 			))}
 
-			<button className={`${styles['arrow-button']} ${currentPage === pageNumbers.length && styles.disabled}`}
+			<button className={`${styles['pagination__arrow-button']} ${currentPage === pageNumbers.length && styles['pagination__arrow-button--disabled']}`}
 			        onClick={() => {
 								if (currentPage !== pageNumbers.length) {
 									onPageChange(currentPage + 1)}

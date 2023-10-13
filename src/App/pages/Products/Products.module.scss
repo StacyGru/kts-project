@@ -1,6 +1,6 @@
 @import "styles/variables";
 
-.text {
+.info__text {
   gap: $space-m;
   text-align: center;
   margin-top: 100px;
@@ -11,12 +11,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: $space-m;
-}
-
-.h2 {
-  font-size: 32px !important;
-  line-height: 48px;
-  margin: 0;
+  gap: $space-m;
 }
 
 .total {
@@ -25,18 +20,7 @@
   align-items: center;
 }
 
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
-  justify-content: space-between;
-  row-gap: 30px;
-  margin: $space-l 0;
-  align-items: stretch;
-}
-
-.link {
-  display: flex;
-  width: 360px;
+.total__h2 {
+  line-height: 48px;
   margin: 0;
-  padding: 0;
 }

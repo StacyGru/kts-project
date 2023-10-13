@@ -20,7 +20,7 @@
 }
 
 .input:focus {
-  outline: none !important;
+  outline: none;
   border: 1px solid $accent-green;
 }
 
@@ -31,4 +31,8 @@
   height: 24px;
   width: 24px;
   cursor: pointer;
+}
+
+.input--flex-grow {
+  flex-grow: 1;
 }

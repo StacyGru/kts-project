@@ -1,0 +1,17 @@
+@import "styles/variables";
+
+.table {
+  width: 100%;
+  text-align: left;
+  border-spacing: $space-m;
+}
+
+.table td {
+ vertical-align: top;
+}
+
+.table__products-td {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxs;
+}

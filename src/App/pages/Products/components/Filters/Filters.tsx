@@ -1,27 +1,30 @@
-import MultiDropdown, {Option} from "components/MultiDropdown/MultiDropdown";
 import React, {useEffect} from "react";
-import globalStore from "store/RootStore/GlobalStore/GlobalStore";
+import MultiDropdown, {MultiDropdownOption} from "components/MultiDropdown/MultiDropdown";
 import ProductStore from "store/ProductStore";
+import rootStore from "store/RootStore";
 
 export type FiltersProps = {
-	categoryList: Option[],
-	selectedFilters: Option[],
-	productStore: ProductStore
+	categoryList: MultiDropdownOption[],
+	selectedFilters: MultiDropdownOption[],
+	productStore: ProductStore,
+	handlePageChange: (page: number) => void
 }
 
 const Filters: React.FC<FiltersProps> = ({
 		categoryList,
 		selectedFilters,
-		productStore
+		productStore,
+    handlePageChange
 	}) => {
 
 	useEffect(() => {
-		globalStore.getCategoryList();
+		rootStore.queryParams.getCategoryList();
 	}, []);
 
-	const handleMultiDropdownChange = (newValue: Option[]) => {
-		globalStore.setFilters(newValue);
+	const handleMultiDropdownChange = (newValue: MultiDropdownOption[]) => {
+		rootStore.queryParams.setFilters(newValue);
 		productStore.getProductList();
+		handlePageChange(1);
 	};
 
 	return (
@@ -30,7 +33,7 @@ const Filters: React.FC<FiltersProps> = ({
 			options={categoryList}
 			selectedOptions={selectedFilters}
 			onChange={handleMultiDropdownChange}
-			getValues={(values: Option[]) => `${values.map(({ value }) => value).join(', ')}`}
+			getValues={(values: MultiDropdownOption[]) => `${values.map(({ value }) => value).join(', ')}`}
 		/>
 	);
 }

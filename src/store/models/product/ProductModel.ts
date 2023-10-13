@@ -1,4 +1,4 @@
-import {CategoryApi, CategoryModel, normalizeCategory} from "models/product/categoryItem";
+import {CategoryApi, CategoryModel, normalizeCategory} from "models/category/CategoryModel";
 
 export type ProductApi = {
 	id: number;

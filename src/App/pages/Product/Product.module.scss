@@ -10,48 +10,25 @@
   margin-bottom: $space-l;
 }
 
-.card {
+.product-card {
   display: flex;
   gap: $space-xl;
   margin-bottom: $space-xl;
 }
 
-.img_card {
+.product-card__img {
   object-fit: cover;
   @include square(600px)
 }
 
-.title {
+.product-card__title {
   margin: 0 0 $space-m;
 }
 
-.description {
+.product-card__description {
   margin-bottom: calc($space-xl + $space-l);
 }
 
-.buttons {
-  display: flex;
-  gap: $space-xl;
+.product-card__button {
   margin-top: $space-xl;
-}
-
-.related_items_title {
-  font-size: 32px !important;
-
-}
-
-.related_items_block {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
-  justify-content: space-between;
-  row-gap: 30px;
-  margin: $space-l 0;
-  align-items: stretch;
-}
-
-.link {
-  display: flex;
-  width: 360px;
-  margin: 0;
-  padding: 0;
 }

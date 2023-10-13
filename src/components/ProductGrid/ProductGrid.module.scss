@@ -1,0 +1,17 @@
+@import "styles/variables";
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
+  column-gap: 20px;
+  justify-content: space-between;
+  row-gap: 30px;
+  margin: $space-l 0;
+  align-items: stretch;
+}
+
+@media screen and (min-width: 1850px) {
+  .product-grid {
+    grid-template-columns: repeat(4, minmax(360px, 360px));
+  }
+}

@@ -1,26 +1,24 @@
-import {action, computed, makeObservable, observable, runInAction} from 'mobx';
-import {Option} from "components/MultiDropdown/MultiDropdown";
-import {CategoryApi, CategoryModel, normalizeCategory} from "../../models/product";
-import {Meta} from "utils/meta";
 import axios from "axios";
+import {action, computed, makeObservable, observable, runInAction} from 'mobx';
+import {MultiDropdownOption} from "components/MultiDropdown/MultiDropdown";
+import {CategoryApi, CategoryModel, normalizeCategory} from "models/category/CategoryModel";
+import {Meta} from "utils/meta";
 
 type PrivateFields = "_meta" | "_currentPage" | "_searchQuery" | "_selectedFilters" | "_categoryList";
 
-
-
 const CATEGORY_LIST_URL: string = 'https://api.escuelajs.co/api/v1/categories';
 
-class GlobalStore {
+export default class QueryParamsStore {
 	private _meta: Meta = Meta.initial;
 
 	private _currentPage: number = 1;
 	private _searchQuery: string = "";
-	private _selectedFilters: Option[] = [];
+	private _selectedFilters: MultiDropdownOption[] = [];
 
-	private _categoryList: Option[] = [];
+	private _categoryList: MultiDropdownOption[] = [];
 
 	constructor() {
-		makeObservable<GlobalStore, PrivateFields>(this, {
+		makeObservable<QueryParamsStore, PrivateFields>(this, {
 			_meta: observable,
 			_currentPage: observable,
 			_searchQuery: observable,
@@ -52,11 +50,11 @@ class GlobalStore {
 		return this._searchQuery;
 	}
 
-	get selectedFilters(): Option[] {
+	get selectedFilters(): MultiDropdownOption[] {
 		return this._selectedFilters;
 	}
 
-	get categoryList(): Option[] {
+	get categoryList(): MultiDropdownOption[] {
 		return this._categoryList;
 	}
 
@@ -68,7 +66,7 @@ class GlobalStore {
 		this._searchQuery = value;
 	}
 
-	setFilters(filters: Option[]) {
+	setFilters(filters: MultiDropdownOption[]) {
 		this._selectedFilters = filters;
 	}
 
@@ -100,5 +98,3 @@ class GlobalStore {
 		})
 	};
 }
-
-export default new GlobalStore();

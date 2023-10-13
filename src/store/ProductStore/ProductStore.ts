@@ -1,6 +1,5 @@
-import {Meta} from "utils/meta";
-import {action, computed, makeObservable, observable, runInAction} from "mobx";
 import axios from "axios";
+import {action, computed, makeObservable, observable, runInAction} from "mobx";
 import {
 	normalizeProduct,
 	ProductApi,
@@ -12,7 +11,8 @@ import {
 	linearizeCollection,
 	normalizeCollection
 } from "models/shared/collection";
-import globalStore from "../RootStore/GlobalStore";
+import rootStore from "store/RootStore";
+import {Meta} from "utils/meta";
 
 type PrivateFields = "_meta" | "_productList" | "_totalPages" | "_productItem" | "_relatedItems";
 
@@ -53,7 +53,7 @@ export default class ProductStore {
 
 	get productList(): ProductModel[] {
 		const list = linearizeCollection(this._productList);
-		this._totalPages = Math.ceil(list.length / 9);
+		this._totalPages = Math.ceil(list.length / 12);
 		return list;
 	}
 
@@ -70,8 +70,8 @@ export default class ProductStore {
 	}
 
 	async getProductList(
-		title: string | null = globalStore.searchQuery,
-		categoryId: number[] = globalStore.selectedFilters.map((filter) => filter.key)
+		title: string | null = rootStore.queryParams.searchQuery,
+		categoryId: number[] = rootStore.queryParams.selectedFilters.map((filter) => filter.key)
 	): Promise<void> {
 
 		this._meta = Meta.loading;
@@ -116,7 +116,7 @@ export default class ProductStore {
 				try {
 					this._productItem = normalizeProduct(response.data);
 					this._meta = Meta.success;
-					globalStore.setPage(1);
+					rootStore.queryParams.setPage(1);
 					return;
 				} catch {
 					this._meta = Meta.error;
@@ -136,14 +136,8 @@ export default class ProductStore {
 				.filter((item) => item.id !== this._productItem.id);
 
 			const randomItems: ProductModel[] = [];
-			let maxRandomItems: number = 0;
-			if (productList.length >= 3) {
-				maxRandomItems = 3;
-			} else {
-				maxRandomItems = productList.length;
-			}
 
-			while (randomItems.length < maxRandomItems && productList.length > 0) {
+			while (randomItems.length < productList.length && productList.length > 0) {
 				const randomIndex = Math.floor(Math.random() * productList.length);
 				const randomItem = productList.splice(randomIndex, 1)[0];
 				randomItems.push(randomItem);

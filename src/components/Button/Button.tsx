@@ -26,14 +26,23 @@ const Button: React.FC<ButtonProps> = ({
 
 	return (
 		<button
-			className={classNames(className, (loading && !restProps.disabled) && styles.loading_only,
-				styles.button, color === 'white' ? styles.button_white : styles.button_accent)}
-			{...restProps}
+			className={classNames(
+				className,
+				styles.button,
+				color === 'white' ? styles["button--white"] : styles["button--accent"],
+				(loading && !restProps.disabled) && styles["button--loading"]
+			)}
 			onClick={handleClick}
 			disabled={restProps.disabled || loading}
+			{...restProps}
 		>
 			{loading && <Loader size="s" color="white"/>}
-			<Text view="button" className={styles.button_text}>{children}</Text>
+			<Text
+				view="button"
+				className={styles.button__text}
+			>
+				{children}
+			</Text>
 		</button>
 	);
 };

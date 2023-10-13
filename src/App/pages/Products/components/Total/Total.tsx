@@ -1,7 +1,7 @@
-import Text from "components/Text";
-import styles from "pages/Products/Products.module.scss";
 import React from "react";
+import Text from "components/Text";
 import {ProductModel} from "models/product";
+import styles from "pages/Products/Products.module.scss";
 
 export type TotalProps = {
 	productList: ProductModel[]
@@ -11,10 +11,22 @@ const Total: React.FC<TotalProps> = ({
 		productList
   }) => {
 	return (
-		<>
-			<Text view="title" tag="h2" className={styles.h2}>Total Product</Text>
-			<Text view="p-20" color="accent" weight="bold">{productList.length}</Text>
-		</>
+		<div className={styles.total}>
+			<Text
+				view="title"
+				tag="h2"
+				className={styles.total__h2}
+			>
+				Total Product
+			</Text>
+			<Text
+				view="p-20"
+				color="accent"
+				weight="bold"
+			>
+				{productList.length}
+			</Text>
+		</div>
 	);
 }
 

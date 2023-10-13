@@ -1,29 +1,28 @@
-import Input from "components/Input";
+import React, {useState} from "react";
 import Button from "components/Button/Button";
-import React from "react";
-import globalStore from "store/RootStore/GlobalStore/GlobalStore";
+import Input from "components/Input";
+import styles from "pages/Products/Products.module.scss";
 import ProductStore from "store/ProductStore";
+import rootStore from "store/RootStore";
 
 export type SearchProps = {
 	handlePageChange: (page: number) => void,
 	productStore: ProductStore,
-	urlSearchParams: URLSearchParams
+	urlSearchParams: URLSearchParams,
 }
 
 const Search: React.FC<SearchProps> = ({
 		handlePageChange,
 		productStore,
-	  urlSearchParams
+	  urlSearchParams,
   }) => {
 
+	const [searchString, setSearchString] = useState(urlSearchParams.get("search") ?? "");
+
 	function handleSearch() {
-		const input = document.getElementById("search-input") as HTMLInputElement;
-		if (input) {
-			const value = input.value;
-			globalStore.setSearchQuery(value);
-			productStore.getProductList();
-			handlePageChange(1);
-		}
+		rootStore.queryParams.setSearchQuery(searchString);
+		productStore.getProductList();
+		handlePageChange(1);
 	}
 
 	function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -34,13 +33,14 @@ const Search: React.FC<SearchProps> = ({
 	}
 
 	return (
-		<>
+		<div className={styles.search}>
 			<Input
-				width="1079px"
 				placeholder="Search product"
 				id="search-input"
 				onKeyDown={handleKeyPress}
-				defaultValue={urlSearchParams.get("search") ?? undefined}
+				value={searchString}
+				onChange={(value) => setSearchString(value)}
+				flexGrow="1"
 			/>
 			<Button
 				onClick={handleSearch}
@@ -48,7 +48,7 @@ const Search: React.FC<SearchProps> = ({
 			>
 				Find now
 			</Button>
-		</>
+		</div>
 	);
 }
 

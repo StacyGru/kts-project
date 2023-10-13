@@ -1,13 +1,10 @@
-import styles from "pages/Products/Products.module.scss";
-import Text from "components/Text";
 import React from "react";
+import PageHeader from "components/PageHeader";
 
 const AboutUs = () => {
 	return (
 		<>
-			<div className={styles.text}>
-				<Text view="title" tag="h1">About us</Text>
-			</div>
+			<PageHeader text="About us"/>
 		</>
 	);
 }

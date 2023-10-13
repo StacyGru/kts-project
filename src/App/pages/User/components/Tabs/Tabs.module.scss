@@ -1,0 +1,61 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 50%;
+  margin: auto;
+}
+
+.tab-header {
+  display: flex;
+  width: 100%;
+}
+
+.tab-content {
+  display: flex;
+  background-color: $white;
+  padding: $space-m;
+}
+
+.tab-info {
+  display: flex;
+  flex-direction: column;
+  gap: $space-m;
+}
+
+.tab-info__details {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxs;
+}
+
+.tab-info__user {
+  display: flex;
+  gap: $space-l;
+}
+
+.tab-info__img-button {
+  display: flex;
+  flex-direction: column;
+  gap: $space-m;
+
+}
+
+.avatar {
+  object-fit: cover;
+  @include square(130px);
+  min-width: 130px;
+}
+
+.button-logout {
+  width: 130px;
+}
+
+.tab-orders {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

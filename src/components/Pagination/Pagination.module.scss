@@ -7,20 +7,20 @@
   align-items: center;
 }
 
-.button {
-  padding: 10px !important;
+.pagination__button {
+  padding: 10px;
 }
 
-.button:not(.current, .dots):hover {
+.pagination__button:not(.pagination__button--current, .pagination__button--dots):hover {
   background-color: #DCE4E3 !important;
 }
 
-.button:not(.current), .dots {
+.pagination__button:not(.pagination__button--current), .pagination__button--dots {
   background-color: $white !important;
   color: $primary-black !important;
 }
 
-.arrow-button {
+.pagination__arrow-button {
   background-color: inherit;
   border: none;
   cursor: pointer;
@@ -28,6 +28,6 @@
   padding: 0;
 }
 
-.disabled {
+.pagination__arrow-button--disabled {
   cursor: default;
 }
